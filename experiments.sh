@@ -19,10 +19,6 @@ _api_body() {
   curl -s -X "$method" --data-raw "$2" --location -H "content-type: application/json" -H "X-api-key: $API_KEY" "$BASE_URL/$1"
 }
 
-urlencode() {
-  jq -rn --arg data "$1" '$data|@uri'
-}
-
 api_put() {
   _api_body "PUT" "$@"
 }
