@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "immich-carddav-sync"
+version = "0.0.1"
+description = ""
+authors = ["Daniele Ricci <daniele@casaricci.it>"]
+readme = "README.md"
+packages = [
+    {include = "immich_carddav_sync"},
+    # TODO include as a dependency
+    {include = "immich-client/immich_client"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+#immich_client = "1.74.0"
+vdirsyncer = "0.19.2"
+vobject = "0.9.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target_version = ['py38', 'py39', 'py310', 'py311']
+exclude = '''
+(
+  /(
+    | \.git
+    | \.venv
+    | \.mypy_cache
+  )/
+)
+'''
+
+[tool.isort]
+line_length = 120
+profile = "black"
