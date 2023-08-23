@@ -6,15 +6,24 @@ authors = ["Daniele Ricci <daniele@casaricci.it>"]
 readme = "README.md"
 packages = [
     {include = "immich_carddav_sync"},
-    # TODO include as a dependency
-    {include = "immich-client/immich_client"}
 ]
+include = ["immich_carddav_sync/immich_client/py.typed"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 #immich_client = "1.74.0"
 vdirsyncer = "0.19.2"
 vobject = "0.9.6.1"
+pydantic-settings = "^2.0.0"
+httpx = ">=0.20.0,<0.25.0"
+attrs = ">=21.3.0"
+python-dateutil = "^2.8.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+[tool.poetry.scripts]
+immich-carddav-sync = 'immich_carddav_sync.main:main'
 
 [build-system]
 requires = ["poetry-core"]
