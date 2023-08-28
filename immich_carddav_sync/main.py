@@ -68,7 +68,13 @@ async def fetch_immich_people(api_url: str, api_key: str):
                     birth_date = person.birth_date.isoformat()
                 else:
                     birth_date = None
-                names[person.name] = (person.id, birth_date)
+
+                if person.name not in names:
+                    names[person.name] = []
+
+                # duplicates will have the same date of birth
+                names[person.name].append((person.id, birth_date))
+
         return names
 
 
@@ -93,14 +99,16 @@ async def async_main():
     logger.debug(people)
 
     for contact_name, contact_bday in addressbook.items():
-        if contact_name in people:
-            if contact_bday != people[contact_name][1]:
-                logger.info("Setting birth date for %s to %s" % (contact_name, contact_bday))
-                await set_immich_birth_date(
-                    people[contact_name][0], contact_bday, settings.immich_api_url, settings.immich_api_key
-                )
-            else:
-                logger.info("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
+        if contact_name in people.keys():
+            for person in people[contact_name]:
+                if contact_bday != person[1]:
+                    logger.info("Setting birth date for %s to %s" % (contact_name, contact_bday))
+                    await set_immich_birth_date(
+                        person[0], contact_bday, settings.immich_api_url, settings.immich_api_key
+                    )
+                else:
+                    logger.info("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
+
         else:
             logger.info("Contact %s not found in Immich - skipping" % contact_name)
 
