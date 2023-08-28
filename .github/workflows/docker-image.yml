@@ -6,11 +6,12 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME_COMMAND: ${{ github.repository }}
+  IMAGE_NAME_DAEMON: ${{ github.repository }}-daemon
 
 jobs:
 
-  build:
+  build-command:
     runs-on: ubuntu-latest
 
     permissions:
@@ -45,10 +46,68 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v4
         with:
-          flavor: |
-            # Disable latest tag
-            latest=false
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          #flavor: |
+          #  # Disable latest tag
+          #  latest=false
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_COMMAND }}
+          tags: |
+            # Tag with branch name
+            type=ref,event=branch
+            # Tag with git tag on release
+            type=ref,event=tag
+            type=raw,value=release,enable=${{ github.event_name == 'release' }}
+            # Used for daemon image
+            type=sha,format=long
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+
+  build-daemon:
+    runs-on: ubuntu-latest
+    needs:
+      - build-command
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      -
+        name: Checkout repository
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        # Workaround to fix error:
+        # failed to push: failed to copy: io: read/write on closed pipe
+        # See https://github.com/docker/build-push-action/issues/761
+        with:
+          driver-opts: |
+            image=moby/buildkit:v0.12.0
+      -
+        name: Login to GitHub Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Generate docker image tags
+        id: metadata
+        uses: docker/metadata-action@v4
+        with:
+          #flavor: |
+          #  # Disable latest tag
+          #  latest=false
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DAEMON }}
           tags: |
             # Tag with branch name
             type=ref,event=branch
@@ -59,6 +118,10 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: cronjob
+          # FIXME this should reflect the tag/branch/whatever we are building
+          build-args: |
+            COMMAND_VERSION=sha-${{ github.sha }}
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
