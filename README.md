@@ -1,18 +1,41 @@
 Immich CardDAV sync tool
 ========================
 
-Work in progress. Stay tuned.
+A tool to sync dates of birth in Immich from a CardDAV server.
 
-* vdir somewhere
-* request all people to immich
-* loop and search in vdir
-  * if name match and has BDAY, call immich update person
+Configuration is provided via environment variables (`.env` file is supported).
 
-Issues:
+| Name                               | Description                                    | Example                       |
+|------------------------------------|------------------------------------------------|-------------------------------|
+| IMMICH_CARDDAV_CARDDAV_URL         | URL to the CardDAV server                      | https://url.carddav.server    |
+| IMMICH_CARDDAV_CARDDAV_ADDRESSBOOK | Address book name or ID in the CardDAV server. | addressbook_name              |
+| IMMICH_CARDDAV_CARDDAV_USERNAME    | Username of CardDAV server                     | user@domain.com               |
+| IMMICH_CARDDAV_CARDDAV_PASSWORD    | Password of CardDAV server                     | my_secure_password            |
+| IMMICH_CARDDAV_IMMICH_API_URL      | Immich instance API URL                        | https://immich_host/api       |
+| IMMICH_CARDDAV_IMMICH_API_KEY      | Immich API key                                 | api_key_generated_from_immich |
 
-* duplicate people in immich should all have the same birthdate set
-* duplicate contacts should be selected interactively or beforehand via parameter (e.g. fail)
+## Implementation notes
 
-Contacts fetching:
+* matching between contacts and Immich people is between
+  the [full name field](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.1) of the contact and the Immich
+  person's name
+* people in Immich with the same name will have the same date of birth
+* duplicate contacts (i.e. with identical full name) are not supported yet (will cause exit with error)
 
-* using vdirsyncer now, could be enough to implement CardDAV just to download a whole address book on start
+## Installation
+
+> TODO package install
+
+Running the tool needs Poetry for now.
+
+FIXME poetry preparation etc.
+
+```shell
+poetry run immich-carddav-sync
+```
+
+## Roadmap
+
+* support for duplicate contacts (ask interactively or assume a predefined behavior)
+* match names with a custom (or multiple) vCard field(s)
+* dry run mode
