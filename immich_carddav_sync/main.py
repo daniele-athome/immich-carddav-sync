@@ -17,6 +17,10 @@ from .immich_client.models import PeopleResponseDto, PersonResponseDto, PersonUp
 
 
 from .config import settings
+from .logger import init_logging
+
+
+logger = logging.getLogger("immich-carddav-sync")
 
 
 async def fetch_carddav_addressbook(url: str, collection: str, username: str, password: str):
@@ -69,44 +73,44 @@ async def fetch_immich_people(api_url: str, api_key: str):
 
 
 async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, api_key: str):
-    logging.debug('PUT /people/%s << {"birthDate":"%s"}', person_id, birth_date)
+    logger.debug('PUT /people/%s << {"birthDate":"%s"}', person_id, birth_date)
     with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
         dto = PersonUpdateDto(birth_date=datetime.date.fromisoformat(birth_date))
         response: PersonResponseDto = await update_person.asyncio(id=person_id, json_body=dto, client=client)
         if not response or response.birth_date.isoformat() != birth_date:
-            raise RuntimeError('Birth date was not set.')
+            raise RuntimeError("Birth date was not set.")
 
 
 async def async_main():
-    logging.info("Fetching CardDAV address book...")
+    logger.info("Fetching CardDAV address book...")
     addressbook = await fetch_carddav_addressbook(
         settings.carddav_url, settings.carddav_addressbook, settings.carddav_username, settings.carddav_password
     )
-    logging.debug(addressbook)
+    logger.debug(addressbook)
 
-    logging.info("Fetching people from Immich...")
+    logger.info("Fetching people from Immich...")
     people = await fetch_immich_people(settings.immich_api_url, settings.immich_api_key)
-    logging.debug(people)
+    logger.debug(people)
 
     for contact_name, contact_bday in addressbook.items():
         if contact_name in people:
             if contact_bday != people[contact_name][1]:
-                logging.info("Setting birth date for %s to %s" % (contact_name, contact_bday))
+                logger.info("Setting birth date for %s to %s" % (contact_name, contact_bday))
                 await set_immich_birth_date(
                     people[contact_name][0], contact_bday, settings.immich_api_url, settings.immich_api_key
                 )
             else:
-                logging.info("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
+                logger.info("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
         else:
-            logging.info("Contact %s not found in Immich - skipping" % contact_name)
+            logger.info("Contact %s not found in Immich - skipping" % contact_name)
 
 
 def main():
     # FIXME I don't like this
-    log_level = logging.getLevelName(os.getenv('LOG_LEVEL'))
+    log_level = logging.getLevelName(os.getenv("LOG_LEVEL"))
     if type(log_level) != int:
         log_level = logging.INFO
-    logging.basicConfig(level=log_level)
+    init_logging(log_level)
 
     asyncio.run(async_main())
 
