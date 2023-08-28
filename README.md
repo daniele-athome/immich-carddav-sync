@@ -37,9 +37,20 @@ FIXME poetry preparation etc.
 poetry run immich-carddav-sync
 ```
 
+## Usage with Docker
+
+Add a cronjob in your system that executes this command:
+
+```shell
+docker run --rm --name immich-carddav-sync --env-file=immich-carddav-sync.env ghcr.io/daniele-athome/immich-carddav-sync:master
+```
+
+The `immich-carddav-sync.env` file should contain all the necessary environment variables (see above). If you prefer you
+can add those variables to the Immich `.env` file itself and reference that one.
+
 ## Roadmap
 
-* docker-compose.yml tutorial based on the one provided by the Immich project
+* docker-compose.yml tutorial based on the one provided by the Immich project (Docker image with cronjob inside)
 * support for duplicate contacts (ask interactively or assume a predefined behavior)
 * match names with a custom (or multiple) vCard field(s)
 * dry run mode
