@@ -1,5 +1,7 @@
 import asyncio
 import datetime
+import logging
+import os
 
 import aiohttp
 import aiostream
@@ -67,7 +69,7 @@ async def fetch_immich_people(api_url: str, api_key: str):
 
 
 async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, api_key: str):
-    print('PUT /people/%s << {"birthDate":"%s"}' % (person_id, birth_date))
+    logging.debug('PUT /people/%s << {"birthDate":"%s"}', person_id, birth_date)
     with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
         dto = PersonUpdateDto(birth_date=datetime.date.fromisoformat(birth_date))
         response: PersonResponseDto = await update_person.asyncio(id=person_id, json_body=dto, client=client)
@@ -75,30 +77,36 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
 
 
 async def async_main():
-    print("Fetching CardDAV address book...")
+    logging.info("Fetching CardDAV address book...")
     addressbook = await fetch_carddav_addressbook(
         settings.carddav_url, settings.carddav_addressbook, settings.carddav_username, settings.carddav_password
     )
-    print(addressbook)
+    logging.debug(addressbook)
 
-    print("Fetching people from Immich...")
+    logging.info("Fetching people from Immich...")
     people = await fetch_immich_people(settings.immich_api_url, settings.immich_api_key)
-    print(people)
+    logging.debug(people)
 
     for contact_name, contact_bday in addressbook.items():
         if contact_name in people:
             if contact_bday != people[contact_name][1]:
-                print("Setting birth date for %s to %s" % (contact_name, contact_bday))
+                logging.info("Setting birth date for %s to %s" % (contact_name, contact_bday))
                 await set_immich_birth_date(
                     people[contact_name][0], contact_bday, settings.immich_api_url, settings.immich_api_key
                 )
             else:
-                print("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
+                logging.info("Birth date for %s is already %s - skipping" % (contact_name, contact_bday))
         else:
-            print("Contact %s not found in Immich - skipping" % contact_name)
+            logging.info("Contact %s not found in Immich - skipping" % contact_name)
 
 
 def main():
+    # FIXME I don't like this
+    log_level = logging.getLevelName(os.getenv('LOG_LEVEL'))
+    if type(log_level) != int:
+        log_level = logging.INFO
+    logging.basicConfig(level=log_level)
+
     asyncio.run(async_main())
 
 
