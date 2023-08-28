@@ -73,7 +73,8 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
     with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
         dto = PersonUpdateDto(birth_date=datetime.date.fromisoformat(birth_date))
         response: PersonResponseDto = await update_person.asyncio(id=person_id, json_body=dto, client=client)
-        # TODO response?
+        if not response or response.birth_date.isoformat() != birth_date:
+            raise RuntimeError('Birth date was not set.')
 
 
 async def async_main():
