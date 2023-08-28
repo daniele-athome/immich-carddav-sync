@@ -46,6 +46,10 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
         names = {}
         for _, item, _ in contacts:
             vcard = vobject.readOne(item.raw)
+            if vcard.fn.value in names:
+                # duplicate contact name - currently not handled
+                raise NotImplementedError('Duplicate contacts cannot be handled yet ("%s").' % vcard.fn.value)
+
             try:
                 names[vcard.fn.value] = datetime.date.fromisoformat(vcard.bday.value).isoformat()
             except ValueError:
