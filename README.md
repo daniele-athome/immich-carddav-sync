@@ -20,10 +20,10 @@ ERROR, CRITICAL).
 ## Implementation notes
 
 * matching between contacts and Immich people is between
-  the [full name field](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.1) of the contact and the Immich
+  the [formatted name field](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.1) of the contact and the Immich
   person's name
 * people in Immich with the same name will have the same date of birth
-* duplicate contacts (i.e. with identical full name) are not supported yet (will cause exit with error)
+* duplicate contacts (i.e. with identical formatted name) are not supported yet (will cause exit with error)
 
 ## Installation
 
