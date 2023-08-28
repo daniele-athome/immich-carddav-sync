@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     carddav_password: str
 
     class Config:
-        env_prefix = "IMMICH_CARDDAV_"
+        env_prefix = "CARDDAV_SYNC_"
         env_file = ".env"
         case_sensitive = False
 
