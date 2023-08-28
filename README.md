@@ -39,7 +39,7 @@ poetry run immich-carddav-sync
 
 ## Roadmap
 
-* Docker image
+* publish Docker images to GitHub registry
 * docker-compose.yml tutorial based on the one provided by the Immich project
 * support for duplicate contacts (ask interactively or assume a predefined behavior)
 * match names with a custom (or multiple) vCard field(s)
