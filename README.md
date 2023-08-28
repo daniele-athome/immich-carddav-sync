@@ -5,14 +5,17 @@ A tool to sync dates of birth in Immich from a CardDAV server.
 
 Configuration is provided via environment variables (`.env` file is supported).
 
-| Name                               | Description                                    | Example                       |
-|------------------------------------|------------------------------------------------|-------------------------------|
-| IMMICH_CARDDAV_CARDDAV_URL         | URL to the CardDAV server                      | https://url.carddav.server    |
-| IMMICH_CARDDAV_CARDDAV_ADDRESSBOOK | Address book name or ID in the CardDAV server. | addressbook_name              |
-| IMMICH_CARDDAV_CARDDAV_USERNAME    | Username of CardDAV server                     | user@domain.com               |
-| IMMICH_CARDDAV_CARDDAV_PASSWORD    | Password of CardDAV server                     | my_secure_password            |
-| IMMICH_CARDDAV_IMMICH_API_URL      | Immich instance API URL                        | https://immich_host/api       |
-| IMMICH_CARDDAV_IMMICH_API_KEY      | Immich API key                                 | api_key_generated_from_immich |
+| Name                               | Description                                    |
+|------------------------------------|------------------------------------------------|
+| IMMICH_CARDDAV_CARDDAV_URL         | URL to the CardDAV server                      |
+| IMMICH_CARDDAV_CARDDAV_ADDRESSBOOK | Address book name or ID in the CardDAV server. |
+| IMMICH_CARDDAV_CARDDAV_USERNAME    | Username of CardDAV server                     |
+| IMMICH_CARDDAV_CARDDAV_PASSWORD    | Password of CardDAV server                     |
+| IMMICH_CARDDAV_IMMICH_API_URL      | Immich instance API URL (including "/api")     |
+| IMMICH_CARDDAV_IMMICH_API_KEY      | Immich API key                                 |
+
+Environment variable LOG_LEVEL will configure the logging level (standard Python logging levels: DEBUG, INFO, WARNING,
+ERROR, CRITICAL).
 
 ## Implementation notes
 
