@@ -51,7 +51,18 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
                 raise NotImplementedError('Duplicate contacts cannot be handled yet ("%s").' % vcard.fn.value)
 
             try:
-                names[vcard.fn.value] = datetime.date.fromisoformat(vcard.bday.value).isoformat()
+                birthday = datetime.date.fromisoformat(vcard.bday.value)
+                try:
+                    omit_year = vcard.bday.params["X-APPLE-OMIT-YEAR"][0]
+                    if str(birthday.year) == omit_year:
+                        # birthday without year, skip
+                        raise ValueError
+                except (KeyError, IndexError):
+                    # no omit year, all fine!
+                    pass
+
+                names[vcard.fn.value] = birthday.isoformat()
+
             except ValueError:
                 # invalid date
                 pass
