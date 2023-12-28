@@ -14,8 +14,6 @@ def _get_kwargs(
     shared: Union[Unset, None, bool] = UNSET,
     asset_id: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["shared"] = shared
 

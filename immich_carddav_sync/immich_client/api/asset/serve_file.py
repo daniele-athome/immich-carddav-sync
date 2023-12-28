@@ -16,8 +16,6 @@ def _get_kwargs(
     is_web: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["isThumb"] = is_thumb
 

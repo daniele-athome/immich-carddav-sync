@@ -22,7 +22,8 @@ class SharedLinkCreateDto:
         asset_ids (Union[Unset, List[str]]):
         description (Union[Unset, str]):
         expires_at (Union[Unset, None, datetime.datetime]):
-        show_exif (Union[Unset, bool]):  Default: True.
+        password (Union[Unset, str]):
+        show_metadata (Union[Unset, bool]):  Default: True.
     """
 
     type: SharedLinkType
@@ -32,7 +33,8 @@ class SharedLinkCreateDto:
     asset_ids: Union[Unset, List[str]] = UNSET
     description: Union[Unset, str] = UNSET
     expires_at: Union[Unset, None, datetime.datetime] = UNSET
-    show_exif: Union[Unset, bool] = True
+    password: Union[Unset, str] = UNSET
+    show_metadata: Union[Unset, bool] = True
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -50,7 +52,8 @@ class SharedLinkCreateDto:
         if not isinstance(self.expires_at, Unset):
             expires_at = self.expires_at.isoformat() if self.expires_at else None
 
-        show_exif = self.show_exif
+        password = self.password
+        show_metadata = self.show_metadata
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -71,8 +74,10 @@ class SharedLinkCreateDto:
             field_dict["description"] = description
         if expires_at is not UNSET:
             field_dict["expiresAt"] = expires_at
-        if show_exif is not UNSET:
-            field_dict["showExif"] = show_exif
+        if password is not UNSET:
+            field_dict["password"] = password
+        if show_metadata is not UNSET:
+            field_dict["showMetadata"] = show_metadata
 
         return field_dict
 
@@ -100,7 +105,9 @@ class SharedLinkCreateDto:
         else:
             expires_at = isoparse(_expires_at)
 
-        show_exif = d.pop("showExif", UNSET)
+        password = d.pop("password", UNSET)
+
+        show_metadata = d.pop("showMetadata", UNSET)
 
         shared_link_create_dto = cls(
             type=type,
@@ -110,7 +117,8 @@ class SharedLinkCreateDto:
             asset_ids=asset_ids,
             description=description,
             expires_at=expires_at,
-            show_exif=show_exif,
+            password=password,
+            show_metadata=show_metadata,
         )
 
         shared_link_create_dto.additional_properties = d

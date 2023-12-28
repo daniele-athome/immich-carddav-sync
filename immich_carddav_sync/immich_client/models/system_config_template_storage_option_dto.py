@@ -16,6 +16,7 @@ class SystemConfigTemplateStorageOptionDto:
         month_options (List[str]):
         preset_options (List[str]):
         second_options (List[str]):
+        week_options (List[str]):
         year_options (List[str]):
     """
 
@@ -25,6 +26,7 @@ class SystemConfigTemplateStorageOptionDto:
     month_options: List[str]
     preset_options: List[str]
     second_options: List[str]
+    week_options: List[str]
     year_options: List[str]
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -41,6 +43,8 @@ class SystemConfigTemplateStorageOptionDto:
 
         second_options = self.second_options
 
+        week_options = self.week_options
+
         year_options = self.year_options
 
         field_dict: Dict[str, Any] = {}
@@ -53,6 +57,7 @@ class SystemConfigTemplateStorageOptionDto:
                 "monthOptions": month_options,
                 "presetOptions": preset_options,
                 "secondOptions": second_options,
+                "weekOptions": week_options,
                 "yearOptions": year_options,
             }
         )
@@ -74,6 +79,8 @@ class SystemConfigTemplateStorageOptionDto:
 
         second_options = cast(List[str], d.pop("secondOptions"))
 
+        week_options = cast(List[str], d.pop("weekOptions"))
+
         year_options = cast(List[str], d.pop("yearOptions"))
 
         system_config_template_storage_option_dto = cls(
@@ -83,6 +90,7 @@ class SystemConfigTemplateStorageOptionDto:
             month_options=month_options,
             preset_options=preset_options,
             second_options=second_options,
+            week_options=week_options,
             year_options=year_options,
         )
 

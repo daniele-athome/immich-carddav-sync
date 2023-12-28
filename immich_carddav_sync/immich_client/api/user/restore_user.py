@@ -12,8 +12,6 @@ from ...types import Response
 def _get_kwargs(
     id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "post",
         "url": "/user/{id}/restore".format(

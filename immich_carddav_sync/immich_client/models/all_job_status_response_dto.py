@@ -15,24 +15,28 @@ class AllJobStatusResponseDto:
     """
     Attributes:
         background_task (JobStatusDto):
-        clip_encoding (JobStatusDto):
+        library (JobStatusDto):
         metadata_extraction (JobStatusDto):
+        migration (JobStatusDto):
         object_tagging (JobStatusDto):
         recognize_faces (JobStatusDto):
         search (JobStatusDto):
         sidecar (JobStatusDto):
+        smart_search (JobStatusDto):
         storage_template_migration (JobStatusDto):
         thumbnail_generation (JobStatusDto):
         video_conversion (JobStatusDto):
     """
 
     background_task: "JobStatusDto"
-    clip_encoding: "JobStatusDto"
+    library: "JobStatusDto"
     metadata_extraction: "JobStatusDto"
+    migration: "JobStatusDto"
     object_tagging: "JobStatusDto"
     recognize_faces: "JobStatusDto"
     search: "JobStatusDto"
     sidecar: "JobStatusDto"
+    smart_search: "JobStatusDto"
     storage_template_migration: "JobStatusDto"
     thumbnail_generation: "JobStatusDto"
     video_conversion: "JobStatusDto"
@@ -41,9 +45,11 @@ class AllJobStatusResponseDto:
     def to_dict(self) -> Dict[str, Any]:
         background_task = self.background_task.to_dict()
 
-        clip_encoding = self.clip_encoding.to_dict()
+        library = self.library.to_dict()
 
         metadata_extraction = self.metadata_extraction.to_dict()
+
+        migration = self.migration.to_dict()
 
         object_tagging = self.object_tagging.to_dict()
 
@@ -52,6 +58,8 @@ class AllJobStatusResponseDto:
         search = self.search.to_dict()
 
         sidecar = self.sidecar.to_dict()
+
+        smart_search = self.smart_search.to_dict()
 
         storage_template_migration = self.storage_template_migration.to_dict()
 
@@ -64,12 +72,14 @@ class AllJobStatusResponseDto:
         field_dict.update(
             {
                 "backgroundTask": background_task,
-                "clipEncoding": clip_encoding,
+                "library": library,
                 "metadataExtraction": metadata_extraction,
+                "migration": migration,
                 "objectTagging": object_tagging,
                 "recognizeFaces": recognize_faces,
                 "search": search,
                 "sidecar": sidecar,
+                "smartSearch": smart_search,
                 "storageTemplateMigration": storage_template_migration,
                 "thumbnailGeneration": thumbnail_generation,
                 "videoConversion": video_conversion,
@@ -85,9 +95,11 @@ class AllJobStatusResponseDto:
         d = src_dict.copy()
         background_task = JobStatusDto.from_dict(d.pop("backgroundTask"))
 
-        clip_encoding = JobStatusDto.from_dict(d.pop("clipEncoding"))
+        library = JobStatusDto.from_dict(d.pop("library"))
 
         metadata_extraction = JobStatusDto.from_dict(d.pop("metadataExtraction"))
+
+        migration = JobStatusDto.from_dict(d.pop("migration"))
 
         object_tagging = JobStatusDto.from_dict(d.pop("objectTagging"))
 
@@ -97,6 +109,8 @@ class AllJobStatusResponseDto:
 
         sidecar = JobStatusDto.from_dict(d.pop("sidecar"))
 
+        smart_search = JobStatusDto.from_dict(d.pop("smartSearch"))
+
         storage_template_migration = JobStatusDto.from_dict(d.pop("storageTemplateMigration"))
 
         thumbnail_generation = JobStatusDto.from_dict(d.pop("thumbnailGeneration"))
@@ -105,12 +119,14 @@ class AllJobStatusResponseDto:
 
         all_job_status_response_dto = cls(
             background_task=background_task,
-            clip_encoding=clip_encoding,
+            library=library,
             metadata_extraction=metadata_extraction,
+            migration=migration,
             object_tagging=object_tagging,
             recognize_faces=recognize_faces,
             search=search,
             sidecar=sidecar,
+            smart_search=smart_search,
             storage_template_migration=storage_template_migration,
             thumbnail_generation=thumbnail_generation,
             video_conversion=video_conversion,

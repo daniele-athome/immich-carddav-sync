@@ -11,8 +11,6 @@ from ...types import Response
 def _get_kwargs(
     device_id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "get",
         "url": "/asset/{deviceId}".format(
@@ -46,7 +44,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[List[str]]:
-    """Get all asset of a device that are in the database, ID only.
+    """Use /asset/device/:deviceId instead - Remove in 1.92 release
 
     Args:
         device_id (str):
@@ -75,7 +73,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Optional[List[str]]:
-    """Get all asset of a device that are in the database, ID only.
+    """Use /asset/device/:deviceId instead - Remove in 1.92 release
 
     Args:
         device_id (str):
@@ -99,7 +97,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[List[str]]:
-    """Get all asset of a device that are in the database, ID only.
+    """Use /asset/device/:deviceId instead - Remove in 1.92 release
 
     Args:
         device_id (str):
@@ -126,7 +124,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Optional[List[str]]:
-    """Get all asset of a device that are in the database, ID only.
+    """Use /asset/device/:deviceId instead - Remove in 1.92 release
 
     Args:
         device_id (str):

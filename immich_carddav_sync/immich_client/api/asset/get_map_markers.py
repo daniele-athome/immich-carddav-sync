@@ -12,13 +12,14 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     file_created_after: Union[Unset, None, datetime.datetime] = UNSET,
     file_created_before: Union[Unset, None, datetime.datetime] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
+    params["isArchived"] = is_archived
+
     params["isFavorite"] = is_favorite
 
     json_file_created_after: Union[Unset, None, str] = UNSET
@@ -74,12 +75,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     file_created_after: Union[Unset, None, datetime.datetime] = UNSET,
     file_created_before: Union[Unset, None, datetime.datetime] = UNSET,
 ) -> Response[List["MapMarkerResponseDto"]]:
     """
     Args:
+        is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
         file_created_after (Union[Unset, None, datetime.datetime]):
         file_created_before (Union[Unset, None, datetime.datetime]):
@@ -93,6 +96,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        is_archived=is_archived,
         is_favorite=is_favorite,
         file_created_after=file_created_after,
         file_created_before=file_created_before,
@@ -108,12 +112,14 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     file_created_after: Union[Unset, None, datetime.datetime] = UNSET,
     file_created_before: Union[Unset, None, datetime.datetime] = UNSET,
 ) -> Optional[List["MapMarkerResponseDto"]]:
     """
     Args:
+        is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
         file_created_after (Union[Unset, None, datetime.datetime]):
         file_created_before (Union[Unset, None, datetime.datetime]):
@@ -128,6 +134,7 @@ def sync(
 
     return sync_detailed(
         client=client,
+        is_archived=is_archived,
         is_favorite=is_favorite,
         file_created_after=file_created_after,
         file_created_before=file_created_before,
@@ -137,12 +144,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     file_created_after: Union[Unset, None, datetime.datetime] = UNSET,
     file_created_before: Union[Unset, None, datetime.datetime] = UNSET,
 ) -> Response[List["MapMarkerResponseDto"]]:
     """
     Args:
+        is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
         file_created_after (Union[Unset, None, datetime.datetime]):
         file_created_before (Union[Unset, None, datetime.datetime]):
@@ -156,6 +165,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        is_archived=is_archived,
         is_favorite=is_favorite,
         file_created_after=file_created_after,
         file_created_before=file_created_before,
@@ -169,12 +179,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     file_created_after: Union[Unset, None, datetime.datetime] = UNSET,
     file_created_before: Union[Unset, None, datetime.datetime] = UNSET,
 ) -> Optional[List["MapMarkerResponseDto"]]:
     """
     Args:
+        is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
         file_created_after (Union[Unset, None, datetime.datetime]):
         file_created_before (Union[Unset, None, datetime.datetime]):
@@ -190,6 +202,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            is_archived=is_archived,
             is_favorite=is_favorite,
             file_created_after=file_created_after,
             file_created_before=file_created_before,

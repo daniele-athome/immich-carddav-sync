@@ -26,12 +26,14 @@ class SharedLinkResponseDto:
         created_at (datetime.datetime):
         id (str):
         key (str):
-        show_exif (bool):
+        show_metadata (bool):
         type (SharedLinkType):
         user_id (str):
         album (Union[Unset, AlbumResponseDto]):
         description (Optional[str]):
         expires_at (Optional[datetime.datetime]):
+        password (Optional[str]):
+        token (Union[Unset, None, str]):
     """
 
     allow_download: bool
@@ -40,12 +42,14 @@ class SharedLinkResponseDto:
     created_at: datetime.datetime
     id: str
     key: str
-    show_exif: bool
+    show_metadata: bool
     type: SharedLinkType
     user_id: str
     description: Optional[str]
     expires_at: Optional[datetime.datetime]
+    password: Optional[str]
     album: Union[Unset, "AlbumResponseDto"] = UNSET
+    token: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -61,7 +65,7 @@ class SharedLinkResponseDto:
 
         id = self.id
         key = self.key
-        show_exif = self.show_exif
+        show_metadata = self.show_metadata
         type = self.type.value
 
         user_id = self.user_id
@@ -71,6 +75,9 @@ class SharedLinkResponseDto:
 
         description = self.description
         expires_at = self.expires_at.isoformat() if self.expires_at else None
+
+        password = self.password
+        token = self.token
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -82,15 +89,18 @@ class SharedLinkResponseDto:
                 "createdAt": created_at,
                 "id": id,
                 "key": key,
-                "showExif": show_exif,
+                "showMetadata": show_metadata,
                 "type": type,
                 "userId": user_id,
                 "description": description,
                 "expiresAt": expires_at,
+                "password": password,
             }
         )
         if album is not UNSET:
             field_dict["album"] = album
+        if token is not UNSET:
+            field_dict["token"] = token
 
         return field_dict
 
@@ -117,7 +127,7 @@ class SharedLinkResponseDto:
 
         key = d.pop("key")
 
-        show_exif = d.pop("showExif")
+        show_metadata = d.pop("showMetadata")
 
         type = SharedLinkType(d.pop("type"))
 
@@ -139,6 +149,10 @@ class SharedLinkResponseDto:
         else:
             expires_at = isoparse(_expires_at)
 
+        password = d.pop("password")
+
+        token = d.pop("token", UNSET)
+
         shared_link_response_dto = cls(
             allow_download=allow_download,
             allow_upload=allow_upload,
@@ -146,12 +160,14 @@ class SharedLinkResponseDto:
             created_at=created_at,
             id=id,
             key=key,
-            show_exif=show_exif,
+            show_metadata=show_metadata,
             type=type,
             user_id=user_id,
             album=album,
             description=description,
             expires_at=expires_at,
+            password=password,
+            token=token,
         )
 
         shared_link_response_dto.additional_properties = d

@@ -11,8 +11,6 @@ from ...types import Response
 def _get_kwargs(
     id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "delete",
         "url": "/album/{id}".format(

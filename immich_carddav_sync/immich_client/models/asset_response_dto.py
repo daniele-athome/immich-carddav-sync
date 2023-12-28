@@ -10,9 +10,10 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.exif_response_dto import ExifResponseDto
-    from ..models.person_response_dto import PersonResponseDto
+    from ..models.person_with_faces_response_dto import PersonWithFacesResponseDto
     from ..models.smart_info_response_dto import SmartInfoResponseDto
     from ..models.tag_response_dto import TagResponseDto
+    from ..models.user_response_dto import UserResponseDto
 
 
 T = TypeVar("T", bound="AssetResponseDto")
@@ -28,9 +29,16 @@ class AssetResponseDto:
         duration (str):
         file_created_at (datetime.datetime):
         file_modified_at (datetime.datetime):
+        has_metadata (bool):
         id (str):
         is_archived (bool):
+        is_external (bool):
         is_favorite (bool):
+        is_offline (bool):
+        is_read_only (bool):
+        is_trashed (bool):
+        library_id (str):
+        local_date_time (datetime.datetime):
         original_file_name (str):
         original_path (str):
         owner_id (str):
@@ -39,10 +47,14 @@ class AssetResponseDto:
         updated_at (datetime.datetime):
         exif_info (Union[Unset, ExifResponseDto]):
         live_photo_video_id (Union[Unset, None, str]):
-        people (Union[Unset, List['PersonResponseDto']]):
+        owner (Union[Unset, UserResponseDto]):
+        people (Union[Unset, List['PersonWithFacesResponseDto']]):
         smart_info (Union[Unset, SmartInfoResponseDto]):
+        stack (Union[Unset, List['AssetResponseDto']]):
+        stack_count (Optional[int]):
+        stack_parent_id (Union[Unset, None, str]):
         tags (Union[Unset, List['TagResponseDto']]):
-        thumbhash (Optional[str]): base64 encoded thumbhash
+        thumbhash (Optional[str]):
     """
 
     checksum: str
@@ -51,20 +63,31 @@ class AssetResponseDto:
     duration: str
     file_created_at: datetime.datetime
     file_modified_at: datetime.datetime
+    has_metadata: bool
     id: str
     is_archived: bool
+    is_external: bool
     is_favorite: bool
+    is_offline: bool
+    is_read_only: bool
+    is_trashed: bool
+    library_id: str
+    local_date_time: datetime.datetime
     original_file_name: str
     original_path: str
     owner_id: str
     resized: bool
     type: AssetTypeEnum
     updated_at: datetime.datetime
+    stack_count: Optional[int]
     thumbhash: Optional[str]
     exif_info: Union[Unset, "ExifResponseDto"] = UNSET
     live_photo_video_id: Union[Unset, None, str] = UNSET
-    people: Union[Unset, List["PersonResponseDto"]] = UNSET
+    owner: Union[Unset, "UserResponseDto"] = UNSET
+    people: Union[Unset, List["PersonWithFacesResponseDto"]] = UNSET
     smart_info: Union[Unset, "SmartInfoResponseDto"] = UNSET
+    stack: Union[Unset, List["AssetResponseDto"]] = UNSET
+    stack_parent_id: Union[Unset, None, str] = UNSET
     tags: Union[Unset, List["TagResponseDto"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -77,9 +100,17 @@ class AssetResponseDto:
 
         file_modified_at = self.file_modified_at.isoformat()
 
+        has_metadata = self.has_metadata
         id = self.id
         is_archived = self.is_archived
+        is_external = self.is_external
         is_favorite = self.is_favorite
+        is_offline = self.is_offline
+        is_read_only = self.is_read_only
+        is_trashed = self.is_trashed
+        library_id = self.library_id
+        local_date_time = self.local_date_time.isoformat()
+
         original_file_name = self.original_file_name
         original_path = self.original_path
         owner_id = self.owner_id
@@ -93,6 +124,10 @@ class AssetResponseDto:
             exif_info = self.exif_info.to_dict()
 
         live_photo_video_id = self.live_photo_video_id
+        owner: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.owner, Unset):
+            owner = self.owner.to_dict()
+
         people: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.people, Unset):
             people = []
@@ -105,6 +140,16 @@ class AssetResponseDto:
         if not isinstance(self.smart_info, Unset):
             smart_info = self.smart_info.to_dict()
 
+        stack: Union[Unset, List[Dict[str, Any]]] = UNSET
+        if not isinstance(self.stack, Unset):
+            stack = []
+            for stack_item_data in self.stack:
+                stack_item = stack_item_data.to_dict()
+
+                stack.append(stack_item)
+
+        stack_count = self.stack_count
+        stack_parent_id = self.stack_parent_id
         tags: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
@@ -125,15 +170,23 @@ class AssetResponseDto:
                 "duration": duration,
                 "fileCreatedAt": file_created_at,
                 "fileModifiedAt": file_modified_at,
+                "hasMetadata": has_metadata,
                 "id": id,
                 "isArchived": is_archived,
+                "isExternal": is_external,
                 "isFavorite": is_favorite,
+                "isOffline": is_offline,
+                "isReadOnly": is_read_only,
+                "isTrashed": is_trashed,
+                "libraryId": library_id,
+                "localDateTime": local_date_time,
                 "originalFileName": original_file_name,
                 "originalPath": original_path,
                 "ownerId": owner_id,
                 "resized": resized,
                 "type": type,
                 "updatedAt": updated_at,
+                "stackCount": stack_count,
                 "thumbhash": thumbhash,
             }
         )
@@ -141,10 +194,16 @@ class AssetResponseDto:
             field_dict["exifInfo"] = exif_info
         if live_photo_video_id is not UNSET:
             field_dict["livePhotoVideoId"] = live_photo_video_id
+        if owner is not UNSET:
+            field_dict["owner"] = owner
         if people is not UNSET:
             field_dict["people"] = people
         if smart_info is not UNSET:
             field_dict["smartInfo"] = smart_info
+        if stack is not UNSET:
+            field_dict["stack"] = stack
+        if stack_parent_id is not UNSET:
+            field_dict["stackParentId"] = stack_parent_id
         if tags is not UNSET:
             field_dict["tags"] = tags
 
@@ -153,9 +212,10 @@ class AssetResponseDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.exif_response_dto import ExifResponseDto
-        from ..models.person_response_dto import PersonResponseDto
+        from ..models.person_with_faces_response_dto import PersonWithFacesResponseDto
         from ..models.smart_info_response_dto import SmartInfoResponseDto
         from ..models.tag_response_dto import TagResponseDto
+        from ..models.user_response_dto import UserResponseDto
 
         d = src_dict.copy()
         checksum = d.pop("checksum")
@@ -170,11 +230,25 @@ class AssetResponseDto:
 
         file_modified_at = isoparse(d.pop("fileModifiedAt"))
 
+        has_metadata = d.pop("hasMetadata")
+
         id = d.pop("id")
 
         is_archived = d.pop("isArchived")
 
+        is_external = d.pop("isExternal")
+
         is_favorite = d.pop("isFavorite")
+
+        is_offline = d.pop("isOffline")
+
+        is_read_only = d.pop("isReadOnly")
+
+        is_trashed = d.pop("isTrashed")
+
+        library_id = d.pop("libraryId")
+
+        local_date_time = isoparse(d.pop("localDateTime"))
 
         original_file_name = d.pop("originalFileName")
 
@@ -197,10 +271,17 @@ class AssetResponseDto:
 
         live_photo_video_id = d.pop("livePhotoVideoId", UNSET)
 
+        _owner = d.pop("owner", UNSET)
+        owner: Union[Unset, UserResponseDto]
+        if isinstance(_owner, Unset):
+            owner = UNSET
+        else:
+            owner = UserResponseDto.from_dict(_owner)
+
         people = []
         _people = d.pop("people", UNSET)
         for people_item_data in _people or []:
-            people_item = PersonResponseDto.from_dict(people_item_data)
+            people_item = PersonWithFacesResponseDto.from_dict(people_item_data)
 
             people.append(people_item)
 
@@ -210,6 +291,17 @@ class AssetResponseDto:
             smart_info = UNSET
         else:
             smart_info = SmartInfoResponseDto.from_dict(_smart_info)
+
+        stack = []
+        _stack = d.pop("stack", UNSET)
+        for stack_item_data in _stack or []:
+            stack_item = AssetResponseDto.from_dict(stack_item_data)
+
+            stack.append(stack_item)
+
+        stack_count = d.pop("stackCount")
+
+        stack_parent_id = d.pop("stackParentId", UNSET)
 
         tags = []
         _tags = d.pop("tags", UNSET)
@@ -227,9 +319,16 @@ class AssetResponseDto:
             duration=duration,
             file_created_at=file_created_at,
             file_modified_at=file_modified_at,
+            has_metadata=has_metadata,
             id=id,
             is_archived=is_archived,
+            is_external=is_external,
             is_favorite=is_favorite,
+            is_offline=is_offline,
+            is_read_only=is_read_only,
+            is_trashed=is_trashed,
+            library_id=library_id,
+            local_date_time=local_date_time,
             original_file_name=original_file_name,
             original_path=original_path,
             owner_id=owner_id,
@@ -238,8 +337,12 @@ class AssetResponseDto:
             updated_at=updated_at,
             exif_info=exif_info,
             live_photo_video_id=live_photo_video_id,
+            owner=owner,
             people=people,
             smart_info=smart_info,
+            stack=stack,
+            stack_count=stack_count,
+            stack_parent_id=stack_parent_id,
             tags=tags,
             thumbhash=thumbhash,
         )

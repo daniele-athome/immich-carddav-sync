@@ -20,11 +20,14 @@ class CreateAssetDto:
         device_id (str):
         file_created_at (datetime.datetime):
         file_modified_at (datetime.datetime):
-        is_favorite (bool):
         duration (Union[Unset, str]):
         is_archived (Union[Unset, bool]):
+        is_external (Union[Unset, bool]):
+        is_favorite (Union[Unset, bool]):
+        is_offline (Union[Unset, bool]):
         is_read_only (Union[Unset, bool]):
         is_visible (Union[Unset, bool]):
+        library_id (Union[Unset, str]):
         live_photo_data (Union[Unset, File]):
         sidecar_data (Union[Unset, File]):
     """
@@ -34,11 +37,14 @@ class CreateAssetDto:
     device_id: str
     file_created_at: datetime.datetime
     file_modified_at: datetime.datetime
-    is_favorite: bool
     duration: Union[Unset, str] = UNSET
     is_archived: Union[Unset, bool] = UNSET
-    is_read_only: Union[Unset, bool] = False
+    is_external: Union[Unset, bool] = UNSET
+    is_favorite: Union[Unset, bool] = UNSET
+    is_offline: Union[Unset, bool] = UNSET
+    is_read_only: Union[Unset, bool] = UNSET
     is_visible: Union[Unset, bool] = UNSET
+    library_id: Union[Unset, str] = UNSET
     live_photo_data: Union[Unset, File] = UNSET
     sidecar_data: Union[Unset, File] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -52,11 +58,14 @@ class CreateAssetDto:
 
         file_modified_at = self.file_modified_at.isoformat()
 
-        is_favorite = self.is_favorite
         duration = self.duration
         is_archived = self.is_archived
+        is_external = self.is_external
+        is_favorite = self.is_favorite
+        is_offline = self.is_offline
         is_read_only = self.is_read_only
         is_visible = self.is_visible
+        library_id = self.library_id
         live_photo_data: Union[Unset, FileJsonType] = UNSET
         if not isinstance(self.live_photo_data, Unset):
             live_photo_data = self.live_photo_data.to_tuple()
@@ -74,17 +83,24 @@ class CreateAssetDto:
                 "deviceId": device_id,
                 "fileCreatedAt": file_created_at,
                 "fileModifiedAt": file_modified_at,
-                "isFavorite": is_favorite,
             }
         )
         if duration is not UNSET:
             field_dict["duration"] = duration
         if is_archived is not UNSET:
             field_dict["isArchived"] = is_archived
+        if is_external is not UNSET:
+            field_dict["isExternal"] = is_external
+        if is_favorite is not UNSET:
+            field_dict["isFavorite"] = is_favorite
+        if is_offline is not UNSET:
+            field_dict["isOffline"] = is_offline
         if is_read_only is not UNSET:
             field_dict["isReadOnly"] = is_read_only
         if is_visible is not UNSET:
             field_dict["isVisible"] = is_visible
+        if library_id is not UNSET:
+            field_dict["libraryId"] = library_id
         if live_photo_data is not UNSET:
             field_dict["livePhotoData"] = live_photo_data
         if sidecar_data is not UNSET:
@@ -107,11 +123,6 @@ class CreateAssetDto:
 
         file_modified_at = self.file_modified_at.isoformat().encode()
 
-        is_favorite = (
-            self.is_favorite
-            if isinstance(self.is_favorite, Unset)
-            else (None, str(self.is_favorite).encode(), "text/plain")
-        )
         duration = (
             self.duration if isinstance(self.duration, Unset) else (None, str(self.duration).encode(), "text/plain")
         )
@@ -119,6 +130,21 @@ class CreateAssetDto:
             self.is_archived
             if isinstance(self.is_archived, Unset)
             else (None, str(self.is_archived).encode(), "text/plain")
+        )
+        is_external = (
+            self.is_external
+            if isinstance(self.is_external, Unset)
+            else (None, str(self.is_external).encode(), "text/plain")
+        )
+        is_favorite = (
+            self.is_favorite
+            if isinstance(self.is_favorite, Unset)
+            else (None, str(self.is_favorite).encode(), "text/plain")
+        )
+        is_offline = (
+            self.is_offline
+            if isinstance(self.is_offline, Unset)
+            else (None, str(self.is_offline).encode(), "text/plain")
         )
         is_read_only = (
             self.is_read_only
@@ -129,6 +155,11 @@ class CreateAssetDto:
             self.is_visible
             if isinstance(self.is_visible, Unset)
             else (None, str(self.is_visible).encode(), "text/plain")
+        )
+        library_id = (
+            self.library_id
+            if isinstance(self.library_id, Unset)
+            else (None, str(self.library_id).encode(), "text/plain")
         )
         live_photo_data: Union[Unset, FileJsonType] = UNSET
         if not isinstance(self.live_photo_data, Unset):
@@ -149,17 +180,24 @@ class CreateAssetDto:
                 "deviceId": device_id,
                 "fileCreatedAt": file_created_at,
                 "fileModifiedAt": file_modified_at,
-                "isFavorite": is_favorite,
             }
         )
         if duration is not UNSET:
             field_dict["duration"] = duration
         if is_archived is not UNSET:
             field_dict["isArchived"] = is_archived
+        if is_external is not UNSET:
+            field_dict["isExternal"] = is_external
+        if is_favorite is not UNSET:
+            field_dict["isFavorite"] = is_favorite
+        if is_offline is not UNSET:
+            field_dict["isOffline"] = is_offline
         if is_read_only is not UNSET:
             field_dict["isReadOnly"] = is_read_only
         if is_visible is not UNSET:
             field_dict["isVisible"] = is_visible
+        if library_id is not UNSET:
+            field_dict["libraryId"] = library_id
         if live_photo_data is not UNSET:
             field_dict["livePhotoData"] = live_photo_data
         if sidecar_data is not UNSET:
@@ -180,15 +218,21 @@ class CreateAssetDto:
 
         file_modified_at = isoparse(d.pop("fileModifiedAt"))
 
-        is_favorite = d.pop("isFavorite")
-
         duration = d.pop("duration", UNSET)
 
         is_archived = d.pop("isArchived", UNSET)
 
+        is_external = d.pop("isExternal", UNSET)
+
+        is_favorite = d.pop("isFavorite", UNSET)
+
+        is_offline = d.pop("isOffline", UNSET)
+
         is_read_only = d.pop("isReadOnly", UNSET)
 
         is_visible = d.pop("isVisible", UNSET)
+
+        library_id = d.pop("libraryId", UNSET)
 
         _live_photo_data = d.pop("livePhotoData", UNSET)
         live_photo_data: Union[Unset, File]
@@ -210,11 +254,14 @@ class CreateAssetDto:
             device_id=device_id,
             file_created_at=file_created_at,
             file_modified_at=file_modified_at,
-            is_favorite=is_favorite,
             duration=duration,
             is_archived=is_archived,
+            is_external=is_external,
+            is_favorite=is_favorite,
+            is_offline=is_offline,
             is_read_only=is_read_only,
             is_visible=is_visible,
+            library_id=library_id,
             live_photo_data=live_photo_data,
             sidecar_data=sidecar_data,
         )

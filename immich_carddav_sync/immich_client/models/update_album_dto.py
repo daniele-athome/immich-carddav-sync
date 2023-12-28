@@ -15,17 +15,20 @@ class UpdateAlbumDto:
         album_name (Union[Unset, str]):
         album_thumbnail_asset_id (Union[Unset, str]):
         description (Union[Unset, str]):
+        is_activity_enabled (Union[Unset, bool]):
     """
 
     album_name: Union[Unset, str] = UNSET
     album_thumbnail_asset_id: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
+    is_activity_enabled: Union[Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         album_name = self.album_name
         album_thumbnail_asset_id = self.album_thumbnail_asset_id
         description = self.description
+        is_activity_enabled = self.is_activity_enabled
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -36,6 +39,8 @@ class UpdateAlbumDto:
             field_dict["albumThumbnailAssetId"] = album_thumbnail_asset_id
         if description is not UNSET:
             field_dict["description"] = description
+        if is_activity_enabled is not UNSET:
+            field_dict["isActivityEnabled"] = is_activity_enabled
 
         return field_dict
 
@@ -48,10 +53,13 @@ class UpdateAlbumDto:
 
         description = d.pop("description", UNSET)
 
+        is_activity_enabled = d.pop("isActivityEnabled", UNSET)
+
         update_album_dto = cls(
             album_name=album_name,
             album_thumbnail_asset_id=album_thumbnail_asset_id,
             description=description,
+            is_activity_enabled=is_activity_enabled,
         )
 
         update_album_dto.additional_properties = d

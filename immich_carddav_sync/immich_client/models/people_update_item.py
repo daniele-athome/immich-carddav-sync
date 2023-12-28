@@ -16,6 +16,7 @@ class PeopleUpdateItem:
     Attributes:
         id (str): Person id.
         birth_date (Union[Unset, None, datetime.date]): Person date of birth.
+            Note: the mobile app cannot currently set the birth date to null.
         feature_face_asset_id (Union[Unset, str]): Asset is used to get the feature face thumbnail.
         is_hidden (Union[Unset, bool]): Person visibility
         name (Union[Unset, str]): Person name.
