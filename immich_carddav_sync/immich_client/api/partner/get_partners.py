@@ -6,7 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.get_partners_direction import GetPartnersDirection
-from ...models.user_response_dto import UserResponseDto
+from ...models.partner_response_dto import PartnerResponseDto
 from ...types import UNSET, Response
 
 
@@ -14,8 +14,6 @@ def _get_kwargs(
     *,
     direction: GetPartnersDirection,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     json_direction = direction.value
 
@@ -32,12 +30,12 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["UserResponseDto"]]:
+) -> Optional[List["PartnerResponseDto"]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = UserResponseDto.from_dict(response_200_item_data)
+            response_200_item = PartnerResponseDto.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -50,7 +48,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["UserResponseDto"]]:
+) -> Response[List["PartnerResponseDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +61,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     direction: GetPartnersDirection,
-) -> Response[List["UserResponseDto"]]:
+) -> Response[List["PartnerResponseDto"]]:
     """
     Args:
         direction (GetPartnersDirection):
@@ -73,7 +71,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['UserResponseDto']]
+        Response[List['PartnerResponseDto']]
     """
 
     kwargs = _get_kwargs(
@@ -91,7 +89,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     direction: GetPartnersDirection,
-) -> Optional[List["UserResponseDto"]]:
+) -> Optional[List["PartnerResponseDto"]]:
     """
     Args:
         direction (GetPartnersDirection):
@@ -101,7 +99,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['UserResponseDto']
+        List['PartnerResponseDto']
     """
 
     return sync_detailed(
@@ -114,7 +112,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     direction: GetPartnersDirection,
-) -> Response[List["UserResponseDto"]]:
+) -> Response[List["PartnerResponseDto"]]:
     """
     Args:
         direction (GetPartnersDirection):
@@ -124,7 +122,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['UserResponseDto']]
+        Response[List['PartnerResponseDto']]
     """
 
     kwargs = _get_kwargs(
@@ -140,7 +138,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     direction: GetPartnersDirection,
-) -> Optional[List["UserResponseDto"]]:
+) -> Optional[List["PartnerResponseDto"]]:
     """
     Args:
         direction (GetPartnersDirection):
@@ -150,7 +148,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['UserResponseDto']
+        List['PartnerResponseDto']
     """
 
     return (

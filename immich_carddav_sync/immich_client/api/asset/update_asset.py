@@ -15,8 +15,6 @@ def _get_kwargs(
     *,
     json_body: UpdateAssetDto,
 ) -> Dict[str, Any]:
-    pass
-
     json_json_body = json_body.to_dict()
 
     return {
@@ -58,8 +56,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     json_body: UpdateAssetDto,
 ) -> Response[AssetResponseDto]:
-    """Update an asset
-
+    """
     Args:
         id (str):
         json_body (UpdateAssetDto):
@@ -90,8 +87,7 @@ def sync(
     client: AuthenticatedClient,
     json_body: UpdateAssetDto,
 ) -> Optional[AssetResponseDto]:
-    """Update an asset
-
+    """
     Args:
         id (str):
         json_body (UpdateAssetDto):
@@ -117,8 +113,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     json_body: UpdateAssetDto,
 ) -> Response[AssetResponseDto]:
-    """Update an asset
-
+    """
     Args:
         id (str):
         json_body (UpdateAssetDto):
@@ -147,8 +142,7 @@ async def asyncio(
     client: AuthenticatedClient,
     json_body: UpdateAssetDto,
 ) -> Optional[AssetResponseDto]:
-    """Update an asset
-
+    """
     Args:
         id (str):
         json_body (UpdateAssetDto):

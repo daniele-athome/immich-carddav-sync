@@ -15,8 +15,6 @@ def _get_kwargs(
     *,
     json_body: AddUsersDto,
 ) -> Dict[str, Any]:
-    pass
-
     json_json_body = json_body.to_dict()
 
     return {

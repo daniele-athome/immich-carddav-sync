@@ -13,8 +13,7 @@ class CreateUserDto:
     """
     Attributes:
         email (str):
-        first_name (str):
-        last_name (str):
+        name (str):
         password (str):
         external_path (Union[Unset, None, str]):
         memories_enabled (Union[Unset, bool]):
@@ -22,8 +21,7 @@ class CreateUserDto:
     """
 
     email: str
-    first_name: str
-    last_name: str
+    name: str
     password: str
     external_path: Union[Unset, None, str] = UNSET
     memories_enabled: Union[Unset, bool] = UNSET
@@ -32,8 +30,7 @@ class CreateUserDto:
 
     def to_dict(self) -> Dict[str, Any]:
         email = self.email
-        first_name = self.first_name
-        last_name = self.last_name
+        name = self.name
         password = self.password
         external_path = self.external_path
         memories_enabled = self.memories_enabled
@@ -44,8 +41,7 @@ class CreateUserDto:
         field_dict.update(
             {
                 "email": email,
-                "firstName": first_name,
-                "lastName": last_name,
+                "name": name,
                 "password": password,
             }
         )
@@ -63,9 +59,7 @@ class CreateUserDto:
         d = src_dict.copy()
         email = d.pop("email")
 
-        first_name = d.pop("firstName")
-
-        last_name = d.pop("lastName")
+        name = d.pop("name")
 
         password = d.pop("password")
 
@@ -77,8 +71,7 @@ class CreateUserDto:
 
         create_user_dto = cls(
             email=email,
-            first_name=first_name,
-            last_name=last_name,
+            name=name,
             password=password,
             external_path=external_path,
             memories_enabled=memories_enabled,

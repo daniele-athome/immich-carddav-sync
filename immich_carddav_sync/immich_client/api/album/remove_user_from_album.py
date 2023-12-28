@@ -12,8 +12,6 @@ def _get_kwargs(
     id: str,
     user_id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "delete",
         "url": "/album/{id}/user/{userId}".format(

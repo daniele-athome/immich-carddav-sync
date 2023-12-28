@@ -1,19 +1,17 @@
 from http import HTTPStatus
+from io import BytesIO
 from typing import Any, Dict, Optional, Union
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_profile_image_response_200 import GetProfileImageResponse200
-from ...types import Response
+from ...types import File, Response
 
 
 def _get_kwargs(
     id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "get",
         "url": "/user/profile-image/{id}".format(
@@ -22,11 +20,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[GetProfileImageResponse200]:
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[File]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = GetProfileImageResponse200.from_dict(response.json())
+        response_200 = File(payload=BytesIO(response.content))
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -35,9 +31,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[GetProfileImageResponse200]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[File]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[GetProfileImageResponse200]:
+) -> Response[File]:
     """
     Args:
         id (str):
@@ -60,7 +54,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetProfileImageResponse200]
+        Response[File]
     """
 
     kwargs = _get_kwargs(
@@ -78,7 +72,7 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[GetProfileImageResponse200]:
+) -> Optional[File]:
     """
     Args:
         id (str):
@@ -88,7 +82,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetProfileImageResponse200
+        File
     """
 
     return sync_detailed(
@@ -101,7 +95,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[GetProfileImageResponse200]:
+) -> Response[File]:
     """
     Args:
         id (str):
@@ -111,7 +105,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetProfileImageResponse200]
+        Response[File]
     """
 
     kwargs = _get_kwargs(
@@ -127,7 +121,7 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[GetProfileImageResponse200]:
+) -> Optional[File]:
     """
     Args:
         id (str):
@@ -137,7 +131,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetProfileImageResponse200
+        File
     """
 
     return (

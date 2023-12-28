@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
@@ -16,21 +16,9 @@ def _get_kwargs(
     query: Union[Unset, None, str] = UNSET,
     clip: Union[Unset, None, bool] = UNSET,
     type: Union[Unset, None, SearchType] = UNSET,
-    is_favorite: Union[Unset, None, bool] = UNSET,
-    is_archived: Union[Unset, None, bool] = UNSET,
-    exif_info_city: Union[Unset, None, str] = UNSET,
-    exif_info_state: Union[Unset, None, str] = UNSET,
-    exif_info_country: Union[Unset, None, str] = UNSET,
-    exif_info_make: Union[Unset, None, str] = UNSET,
-    exif_info_model: Union[Unset, None, str] = UNSET,
-    exif_info_projection_type: Union[Unset, None, str] = UNSET,
-    smart_info_objects: Union[Unset, None, List[str]] = UNSET,
-    smart_info_tags: Union[Unset, None, List[str]] = UNSET,
     recent: Union[Unset, None, bool] = UNSET,
     motion: Union[Unset, None, bool] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["q"] = q
 
@@ -43,40 +31,6 @@ def _get_kwargs(
         json_type = type.value if type else None
 
     params["type"] = json_type
-
-    params["isFavorite"] = is_favorite
-
-    params["isArchived"] = is_archived
-
-    params["exifInfo.city"] = exif_info_city
-
-    params["exifInfo.state"] = exif_info_state
-
-    params["exifInfo.country"] = exif_info_country
-
-    params["exifInfo.make"] = exif_info_make
-
-    params["exifInfo.model"] = exif_info_model
-
-    params["exifInfo.projectionType"] = exif_info_projection_type
-
-    json_smart_info_objects: Union[Unset, None, List[str]] = UNSET
-    if not isinstance(smart_info_objects, Unset):
-        if smart_info_objects is None:
-            json_smart_info_objects = None
-        else:
-            json_smart_info_objects = smart_info_objects
-
-    params["smartInfo.objects"] = json_smart_info_objects
-
-    json_smart_info_tags: Union[Unset, None, List[str]] = UNSET
-    if not isinstance(smart_info_tags, Unset):
-        if smart_info_tags is None:
-            json_smart_info_tags = None
-        else:
-            json_smart_info_tags = smart_info_tags
-
-    params["smartInfo.tags"] = json_smart_info_tags
 
     params["recent"] = recent
 
@@ -122,16 +76,6 @@ def sync_detailed(
     query: Union[Unset, None, str] = UNSET,
     clip: Union[Unset, None, bool] = UNSET,
     type: Union[Unset, None, SearchType] = UNSET,
-    is_favorite: Union[Unset, None, bool] = UNSET,
-    is_archived: Union[Unset, None, bool] = UNSET,
-    exif_info_city: Union[Unset, None, str] = UNSET,
-    exif_info_state: Union[Unset, None, str] = UNSET,
-    exif_info_country: Union[Unset, None, str] = UNSET,
-    exif_info_make: Union[Unset, None, str] = UNSET,
-    exif_info_model: Union[Unset, None, str] = UNSET,
-    exif_info_projection_type: Union[Unset, None, str] = UNSET,
-    smart_info_objects: Union[Unset, None, List[str]] = UNSET,
-    smart_info_tags: Union[Unset, None, List[str]] = UNSET,
     recent: Union[Unset, None, bool] = UNSET,
     motion: Union[Unset, None, bool] = UNSET,
 ) -> Response[SearchResponseDto]:
@@ -141,16 +85,6 @@ def sync_detailed(
         query (Union[Unset, None, str]):
         clip (Union[Unset, None, bool]):
         type (Union[Unset, None, SearchType]):
-        is_favorite (Union[Unset, None, bool]):
-        is_archived (Union[Unset, None, bool]):
-        exif_info_city (Union[Unset, None, str]):
-        exif_info_state (Union[Unset, None, str]):
-        exif_info_country (Union[Unset, None, str]):
-        exif_info_make (Union[Unset, None, str]):
-        exif_info_model (Union[Unset, None, str]):
-        exif_info_projection_type (Union[Unset, None, str]):
-        smart_info_objects (Union[Unset, None, List[str]]):
-        smart_info_tags (Union[Unset, None, List[str]]):
         recent (Union[Unset, None, bool]):
         motion (Union[Unset, None, bool]):
 
@@ -167,16 +101,6 @@ def sync_detailed(
         query=query,
         clip=clip,
         type=type,
-        is_favorite=is_favorite,
-        is_archived=is_archived,
-        exif_info_city=exif_info_city,
-        exif_info_state=exif_info_state,
-        exif_info_country=exif_info_country,
-        exif_info_make=exif_info_make,
-        exif_info_model=exif_info_model,
-        exif_info_projection_type=exif_info_projection_type,
-        smart_info_objects=smart_info_objects,
-        smart_info_tags=smart_info_tags,
         recent=recent,
         motion=motion,
     )
@@ -195,16 +119,6 @@ def sync(
     query: Union[Unset, None, str] = UNSET,
     clip: Union[Unset, None, bool] = UNSET,
     type: Union[Unset, None, SearchType] = UNSET,
-    is_favorite: Union[Unset, None, bool] = UNSET,
-    is_archived: Union[Unset, None, bool] = UNSET,
-    exif_info_city: Union[Unset, None, str] = UNSET,
-    exif_info_state: Union[Unset, None, str] = UNSET,
-    exif_info_country: Union[Unset, None, str] = UNSET,
-    exif_info_make: Union[Unset, None, str] = UNSET,
-    exif_info_model: Union[Unset, None, str] = UNSET,
-    exif_info_projection_type: Union[Unset, None, str] = UNSET,
-    smart_info_objects: Union[Unset, None, List[str]] = UNSET,
-    smart_info_tags: Union[Unset, None, List[str]] = UNSET,
     recent: Union[Unset, None, bool] = UNSET,
     motion: Union[Unset, None, bool] = UNSET,
 ) -> Optional[SearchResponseDto]:
@@ -214,16 +128,6 @@ def sync(
         query (Union[Unset, None, str]):
         clip (Union[Unset, None, bool]):
         type (Union[Unset, None, SearchType]):
-        is_favorite (Union[Unset, None, bool]):
-        is_archived (Union[Unset, None, bool]):
-        exif_info_city (Union[Unset, None, str]):
-        exif_info_state (Union[Unset, None, str]):
-        exif_info_country (Union[Unset, None, str]):
-        exif_info_make (Union[Unset, None, str]):
-        exif_info_model (Union[Unset, None, str]):
-        exif_info_projection_type (Union[Unset, None, str]):
-        smart_info_objects (Union[Unset, None, List[str]]):
-        smart_info_tags (Union[Unset, None, List[str]]):
         recent (Union[Unset, None, bool]):
         motion (Union[Unset, None, bool]):
 
@@ -241,16 +145,6 @@ def sync(
         query=query,
         clip=clip,
         type=type,
-        is_favorite=is_favorite,
-        is_archived=is_archived,
-        exif_info_city=exif_info_city,
-        exif_info_state=exif_info_state,
-        exif_info_country=exif_info_country,
-        exif_info_make=exif_info_make,
-        exif_info_model=exif_info_model,
-        exif_info_projection_type=exif_info_projection_type,
-        smart_info_objects=smart_info_objects,
-        smart_info_tags=smart_info_tags,
         recent=recent,
         motion=motion,
     ).parsed
@@ -263,16 +157,6 @@ async def asyncio_detailed(
     query: Union[Unset, None, str] = UNSET,
     clip: Union[Unset, None, bool] = UNSET,
     type: Union[Unset, None, SearchType] = UNSET,
-    is_favorite: Union[Unset, None, bool] = UNSET,
-    is_archived: Union[Unset, None, bool] = UNSET,
-    exif_info_city: Union[Unset, None, str] = UNSET,
-    exif_info_state: Union[Unset, None, str] = UNSET,
-    exif_info_country: Union[Unset, None, str] = UNSET,
-    exif_info_make: Union[Unset, None, str] = UNSET,
-    exif_info_model: Union[Unset, None, str] = UNSET,
-    exif_info_projection_type: Union[Unset, None, str] = UNSET,
-    smart_info_objects: Union[Unset, None, List[str]] = UNSET,
-    smart_info_tags: Union[Unset, None, List[str]] = UNSET,
     recent: Union[Unset, None, bool] = UNSET,
     motion: Union[Unset, None, bool] = UNSET,
 ) -> Response[SearchResponseDto]:
@@ -282,16 +166,6 @@ async def asyncio_detailed(
         query (Union[Unset, None, str]):
         clip (Union[Unset, None, bool]):
         type (Union[Unset, None, SearchType]):
-        is_favorite (Union[Unset, None, bool]):
-        is_archived (Union[Unset, None, bool]):
-        exif_info_city (Union[Unset, None, str]):
-        exif_info_state (Union[Unset, None, str]):
-        exif_info_country (Union[Unset, None, str]):
-        exif_info_make (Union[Unset, None, str]):
-        exif_info_model (Union[Unset, None, str]):
-        exif_info_projection_type (Union[Unset, None, str]):
-        smart_info_objects (Union[Unset, None, List[str]]):
-        smart_info_tags (Union[Unset, None, List[str]]):
         recent (Union[Unset, None, bool]):
         motion (Union[Unset, None, bool]):
 
@@ -308,16 +182,6 @@ async def asyncio_detailed(
         query=query,
         clip=clip,
         type=type,
-        is_favorite=is_favorite,
-        is_archived=is_archived,
-        exif_info_city=exif_info_city,
-        exif_info_state=exif_info_state,
-        exif_info_country=exif_info_country,
-        exif_info_make=exif_info_make,
-        exif_info_model=exif_info_model,
-        exif_info_projection_type=exif_info_projection_type,
-        smart_info_objects=smart_info_objects,
-        smart_info_tags=smart_info_tags,
         recent=recent,
         motion=motion,
     )
@@ -334,16 +198,6 @@ async def asyncio(
     query: Union[Unset, None, str] = UNSET,
     clip: Union[Unset, None, bool] = UNSET,
     type: Union[Unset, None, SearchType] = UNSET,
-    is_favorite: Union[Unset, None, bool] = UNSET,
-    is_archived: Union[Unset, None, bool] = UNSET,
-    exif_info_city: Union[Unset, None, str] = UNSET,
-    exif_info_state: Union[Unset, None, str] = UNSET,
-    exif_info_country: Union[Unset, None, str] = UNSET,
-    exif_info_make: Union[Unset, None, str] = UNSET,
-    exif_info_model: Union[Unset, None, str] = UNSET,
-    exif_info_projection_type: Union[Unset, None, str] = UNSET,
-    smart_info_objects: Union[Unset, None, List[str]] = UNSET,
-    smart_info_tags: Union[Unset, None, List[str]] = UNSET,
     recent: Union[Unset, None, bool] = UNSET,
     motion: Union[Unset, None, bool] = UNSET,
 ) -> Optional[SearchResponseDto]:
@@ -353,16 +207,6 @@ async def asyncio(
         query (Union[Unset, None, str]):
         clip (Union[Unset, None, bool]):
         type (Union[Unset, None, SearchType]):
-        is_favorite (Union[Unset, None, bool]):
-        is_archived (Union[Unset, None, bool]):
-        exif_info_city (Union[Unset, None, str]):
-        exif_info_state (Union[Unset, None, str]):
-        exif_info_country (Union[Unset, None, str]):
-        exif_info_make (Union[Unset, None, str]):
-        exif_info_model (Union[Unset, None, str]):
-        exif_info_projection_type (Union[Unset, None, str]):
-        smart_info_objects (Union[Unset, None, List[str]]):
-        smart_info_tags (Union[Unset, None, List[str]]):
         recent (Union[Unset, None, bool]):
         motion (Union[Unset, None, bool]):
 
@@ -381,16 +225,6 @@ async def asyncio(
             query=query,
             clip=clip,
             type=type,
-            is_favorite=is_favorite,
-            is_archived=is_archived,
-            exif_info_city=exif_info_city,
-            exif_info_state=exif_info_state,
-            exif_info_country=exif_info_country,
-            exif_info_make=exif_info_make,
-            exif_info_model=exif_info_model,
-            exif_info_projection_type=exif_info_projection_type,
-            smart_info_objects=smart_info_objects,
-            smart_info_tags=smart_info_tags,
             recent=recent,
             motion=motion,
         )

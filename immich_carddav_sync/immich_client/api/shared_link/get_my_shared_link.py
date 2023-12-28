@@ -11,11 +11,15 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    password: Union[Unset, None, str] = UNSET,
+    token: Union[Unset, None, str] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
+    params["password"] = password
+
+    params["token"] = token
+
     params["key"] = key
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
@@ -54,10 +58,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    password: Union[Unset, None, str] = UNSET,
+    token: Union[Unset, None, str] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Response[SharedLinkResponseDto]:
     """
     Args:
+        password (Union[Unset, None, str]):
+        token (Union[Unset, None, str]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -69,6 +77,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        password=password,
+        token=token,
         key=key,
     )
 
@@ -82,10 +92,14 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    password: Union[Unset, None, str] = UNSET,
+    token: Union[Unset, None, str] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Optional[SharedLinkResponseDto]:
     """
     Args:
+        password (Union[Unset, None, str]):
+        token (Union[Unset, None, str]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -98,6 +112,8 @@ def sync(
 
     return sync_detailed(
         client=client,
+        password=password,
+        token=token,
         key=key,
     ).parsed
 
@@ -105,10 +121,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    password: Union[Unset, None, str] = UNSET,
+    token: Union[Unset, None, str] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Response[SharedLinkResponseDto]:
     """
     Args:
+        password (Union[Unset, None, str]):
+        token (Union[Unset, None, str]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -120,6 +140,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        password=password,
+        token=token,
         key=key,
     )
 
@@ -131,10 +153,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    password: Union[Unset, None, str] = UNSET,
+    token: Union[Unset, None, str] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Optional[SharedLinkResponseDto]:
     """
     Args:
+        password (Union[Unset, None, str]):
+        token (Union[Unset, None, str]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -148,6 +174,8 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            password=password,
+            token=token,
             key=key,
         )
     ).parsed

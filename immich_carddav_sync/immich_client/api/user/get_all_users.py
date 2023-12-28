@@ -13,8 +13,6 @@ def _get_kwargs(
     *,
     is_all: bool,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["isAll"] = is_all
 

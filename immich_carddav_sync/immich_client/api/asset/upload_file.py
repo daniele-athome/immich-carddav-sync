@@ -15,8 +15,6 @@ def _get_kwargs(
     multipart_data: CreateAssetDto,
     key: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["key"] = key
 

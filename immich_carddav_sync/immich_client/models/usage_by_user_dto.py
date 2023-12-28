@@ -12,26 +12,23 @@ class UsageByUserDto:
     Attributes:
         photos (int):
         usage (int):
-        user_first_name (str):
         user_id (str):
-        user_last_name (str):
+        user_name (str):
         videos (int):
     """
 
     photos: int
     usage: int
-    user_first_name: str
     user_id: str
-    user_last_name: str
+    user_name: str
     videos: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         photos = self.photos
         usage = self.usage
-        user_first_name = self.user_first_name
         user_id = self.user_id
-        user_last_name = self.user_last_name
+        user_name = self.user_name
         videos = self.videos
 
         field_dict: Dict[str, Any] = {}
@@ -40,9 +37,8 @@ class UsageByUserDto:
             {
                 "photos": photos,
                 "usage": usage,
-                "userFirstName": user_first_name,
                 "userId": user_id,
-                "userLastName": user_last_name,
+                "userName": user_name,
                 "videos": videos,
             }
         )
@@ -56,20 +52,17 @@ class UsageByUserDto:
 
         usage = d.pop("usage")
 
-        user_first_name = d.pop("userFirstName")
-
         user_id = d.pop("userId")
 
-        user_last_name = d.pop("userLastName")
+        user_name = d.pop("userName")
 
         videos = d.pop("videos")
 
         usage_by_user_dto = cls(
             photos=photos,
             usage=usage,
-            user_first_name=user_first_name,
             user_id=user_id,
-            user_last_name=user_last_name,
+            user_name=user_name,
             videos=videos,
         )
 

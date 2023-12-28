@@ -11,9 +11,8 @@ class LoginResponseDto:
     """
     Attributes:
         access_token (str):
-        first_name (str):
         is_admin (bool):
-        last_name (str):
+        name (str):
         profile_image_path (str):
         should_change_password (bool):
         user_email (str):
@@ -21,9 +20,8 @@ class LoginResponseDto:
     """
 
     access_token: str
-    first_name: str
     is_admin: bool
-    last_name: str
+    name: str
     profile_image_path: str
     should_change_password: bool
     user_email: str
@@ -32,9 +30,8 @@ class LoginResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         access_token = self.access_token
-        first_name = self.first_name
         is_admin = self.is_admin
-        last_name = self.last_name
+        name = self.name
         profile_image_path = self.profile_image_path
         should_change_password = self.should_change_password
         user_email = self.user_email
@@ -45,9 +42,8 @@ class LoginResponseDto:
         field_dict.update(
             {
                 "accessToken": access_token,
-                "firstName": first_name,
                 "isAdmin": is_admin,
-                "lastName": last_name,
+                "name": name,
                 "profileImagePath": profile_image_path,
                 "shouldChangePassword": should_change_password,
                 "userEmail": user_email,
@@ -62,11 +58,9 @@ class LoginResponseDto:
         d = src_dict.copy()
         access_token = d.pop("accessToken")
 
-        first_name = d.pop("firstName")
-
         is_admin = d.pop("isAdmin")
 
-        last_name = d.pop("lastName")
+        name = d.pop("name")
 
         profile_image_path = d.pop("profileImagePath")
 
@@ -78,9 +72,8 @@ class LoginResponseDto:
 
         login_response_dto = cls(
             access_token=access_token,
-            first_name=first_name,
             is_admin=is_admin,
-            last_name=last_name,
+            name=name,
             profile_image_path=profile_image_path,
             should_change_password=should_change_password,
             user_email=user_email,

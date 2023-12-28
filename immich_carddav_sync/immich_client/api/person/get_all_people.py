@@ -13,8 +13,6 @@ def _get_kwargs(
     *,
     with_hidden: Union[Unset, None, bool] = False,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     params["withHidden"] = with_hidden
 

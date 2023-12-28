@@ -5,6 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.user_avatar_color import UserAvatarColor
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UserResponseDto")
@@ -14,12 +15,12 @@ T = TypeVar("T", bound="UserResponseDto")
 class UserResponseDto:
     """
     Attributes:
+        avatar_color (UserAvatarColor):
         created_at (datetime.datetime):
         email (str):
-        first_name (str):
         id (str):
         is_admin (bool):
-        last_name (str):
+        name (str):
         oauth_id (str):
         profile_image_path (str):
         should_change_password (bool):
@@ -30,12 +31,12 @@ class UserResponseDto:
         storage_label (Optional[str]):
     """
 
+    avatar_color: UserAvatarColor
     created_at: datetime.datetime
     email: str
-    first_name: str
     id: str
     is_admin: bool
-    last_name: str
+    name: str
     oauth_id: str
     profile_image_path: str
     should_change_password: bool
@@ -47,13 +48,14 @@ class UserResponseDto:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        avatar_color = self.avatar_color.value
+
         created_at = self.created_at.isoformat()
 
         email = self.email
-        first_name = self.first_name
         id = self.id
         is_admin = self.is_admin
-        last_name = self.last_name
+        name = self.name
         oauth_id = self.oauth_id
         profile_image_path = self.profile_image_path
         should_change_password = self.should_change_password
@@ -69,12 +71,12 @@ class UserResponseDto:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "avatarColor": avatar_color,
                 "createdAt": created_at,
                 "email": email,
-                "firstName": first_name,
                 "id": id,
                 "isAdmin": is_admin,
-                "lastName": last_name,
+                "name": name,
                 "oauthId": oauth_id,
                 "profileImagePath": profile_image_path,
                 "shouldChangePassword": should_change_password,
@@ -92,17 +94,17 @@ class UserResponseDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        avatar_color = UserAvatarColor(d.pop("avatarColor"))
+
         created_at = isoparse(d.pop("createdAt"))
 
         email = d.pop("email")
-
-        first_name = d.pop("firstName")
 
         id = d.pop("id")
 
         is_admin = d.pop("isAdmin")
 
-        last_name = d.pop("lastName")
+        name = d.pop("name")
 
         oauth_id = d.pop("oauthId")
 
@@ -126,12 +128,12 @@ class UserResponseDto:
         storage_label = d.pop("storageLabel")
 
         user_response_dto = cls(
+            avatar_color=avatar_color,
             created_at=created_at,
             email=email,
-            first_name=first_name,
             id=id,
             is_admin=is_admin,
-            last_name=last_name,
+            name=name,
             oauth_id=oauth_id,
             profile_image_path=profile_image_path,
             should_change_password=should_change_password,

@@ -18,10 +18,11 @@ def _get_kwargs(
     person_id: Union[Unset, None, str] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
+    is_trashed: Union[Unset, None, bool] = UNSET,
+    with_stacked: Union[Unset, None, bool] = UNSET,
+    with_partners: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    pass
-
     params: Dict[str, Any] = {}
     json_size = size.value
 
@@ -36,6 +37,12 @@ def _get_kwargs(
     params["isArchived"] = is_archived
 
     params["isFavorite"] = is_favorite
+
+    params["isTrashed"] = is_trashed
+
+    params["withStacked"] = with_stacked
+
+    params["withPartners"] = with_partners
 
     params["key"] = key
 
@@ -86,6 +93,9 @@ def sync_detailed(
     person_id: Union[Unset, None, str] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
+    is_trashed: Union[Unset, None, bool] = UNSET,
+    with_stacked: Union[Unset, None, bool] = UNSET,
+    with_partners: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Response[List["TimeBucketResponseDto"]]:
     """
@@ -96,6 +106,9 @@ def sync_detailed(
         person_id (Union[Unset, None, str]):
         is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
+        is_trashed (Union[Unset, None, bool]):
+        with_stacked (Union[Unset, None, bool]):
+        with_partners (Union[Unset, None, bool]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -113,6 +126,9 @@ def sync_detailed(
         person_id=person_id,
         is_archived=is_archived,
         is_favorite=is_favorite,
+        is_trashed=is_trashed,
+        with_stacked=with_stacked,
+        with_partners=with_partners,
         key=key,
     )
 
@@ -132,6 +148,9 @@ def sync(
     person_id: Union[Unset, None, str] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
+    is_trashed: Union[Unset, None, bool] = UNSET,
+    with_stacked: Union[Unset, None, bool] = UNSET,
+    with_partners: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Optional[List["TimeBucketResponseDto"]]:
     """
@@ -142,6 +161,9 @@ def sync(
         person_id (Union[Unset, None, str]):
         is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
+        is_trashed (Union[Unset, None, bool]):
+        with_stacked (Union[Unset, None, bool]):
+        with_partners (Union[Unset, None, bool]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -160,6 +182,9 @@ def sync(
         person_id=person_id,
         is_archived=is_archived,
         is_favorite=is_favorite,
+        is_trashed=is_trashed,
+        with_stacked=with_stacked,
+        with_partners=with_partners,
         key=key,
     ).parsed
 
@@ -173,6 +198,9 @@ async def asyncio_detailed(
     person_id: Union[Unset, None, str] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
+    is_trashed: Union[Unset, None, bool] = UNSET,
+    with_stacked: Union[Unset, None, bool] = UNSET,
+    with_partners: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Response[List["TimeBucketResponseDto"]]:
     """
@@ -183,6 +211,9 @@ async def asyncio_detailed(
         person_id (Union[Unset, None, str]):
         is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
+        is_trashed (Union[Unset, None, bool]):
+        with_stacked (Union[Unset, None, bool]):
+        with_partners (Union[Unset, None, bool]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -200,6 +231,9 @@ async def asyncio_detailed(
         person_id=person_id,
         is_archived=is_archived,
         is_favorite=is_favorite,
+        is_trashed=is_trashed,
+        with_stacked=with_stacked,
+        with_partners=with_partners,
         key=key,
     )
 
@@ -217,6 +251,9 @@ async def asyncio(
     person_id: Union[Unset, None, str] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
+    is_trashed: Union[Unset, None, bool] = UNSET,
+    with_stacked: Union[Unset, None, bool] = UNSET,
+    with_partners: Union[Unset, None, bool] = UNSET,
     key: Union[Unset, None, str] = UNSET,
 ) -> Optional[List["TimeBucketResponseDto"]]:
     """
@@ -227,6 +264,9 @@ async def asyncio(
         person_id (Union[Unset, None, str]):
         is_archived (Union[Unset, None, bool]):
         is_favorite (Union[Unset, None, bool]):
+        is_trashed (Union[Unset, None, bool]):
+        with_stacked (Union[Unset, None, bool]):
+        with_partners (Union[Unset, None, bool]):
         key (Union[Unset, None, str]):
 
     Raises:
@@ -246,6 +286,9 @@ async def asyncio(
             person_id=person_id,
             is_archived=is_archived,
             is_favorite=is_favorite,
+            is_trashed=is_trashed,
+            with_stacked=with_stacked,
+            with_partners=with_partners,
             key=key,
         )
     ).parsed

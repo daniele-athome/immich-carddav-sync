@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.user_avatar_color import UserAvatarColor
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UpdateUserDto")
@@ -13,24 +14,24 @@ class UpdateUserDto:
     """
     Attributes:
         id (str):
+        avatar_color (Union[Unset, UserAvatarColor]):
         email (Union[Unset, str]):
         external_path (Union[Unset, str]):
-        first_name (Union[Unset, str]):
         is_admin (Union[Unset, bool]):
-        last_name (Union[Unset, str]):
         memories_enabled (Union[Unset, bool]):
+        name (Union[Unset, str]):
         password (Union[Unset, str]):
         should_change_password (Union[Unset, bool]):
         storage_label (Union[Unset, str]):
     """
 
     id: str
+    avatar_color: Union[Unset, UserAvatarColor] = UNSET
     email: Union[Unset, str] = UNSET
     external_path: Union[Unset, str] = UNSET
-    first_name: Union[Unset, str] = UNSET
     is_admin: Union[Unset, bool] = UNSET
-    last_name: Union[Unset, str] = UNSET
     memories_enabled: Union[Unset, bool] = UNSET
+    name: Union[Unset, str] = UNSET
     password: Union[Unset, str] = UNSET
     should_change_password: Union[Unset, bool] = UNSET
     storage_label: Union[Unset, str] = UNSET
@@ -38,12 +39,15 @@ class UpdateUserDto:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+        avatar_color: Union[Unset, str] = UNSET
+        if not isinstance(self.avatar_color, Unset):
+            avatar_color = self.avatar_color.value
+
         email = self.email
         external_path = self.external_path
-        first_name = self.first_name
         is_admin = self.is_admin
-        last_name = self.last_name
         memories_enabled = self.memories_enabled
+        name = self.name
         password = self.password
         should_change_password = self.should_change_password
         storage_label = self.storage_label
@@ -55,18 +59,18 @@ class UpdateUserDto:
                 "id": id,
             }
         )
+        if avatar_color is not UNSET:
+            field_dict["avatarColor"] = avatar_color
         if email is not UNSET:
             field_dict["email"] = email
         if external_path is not UNSET:
             field_dict["externalPath"] = external_path
-        if first_name is not UNSET:
-            field_dict["firstName"] = first_name
         if is_admin is not UNSET:
             field_dict["isAdmin"] = is_admin
-        if last_name is not UNSET:
-            field_dict["lastName"] = last_name
         if memories_enabled is not UNSET:
             field_dict["memoriesEnabled"] = memories_enabled
+        if name is not UNSET:
+            field_dict["name"] = name
         if password is not UNSET:
             field_dict["password"] = password
         if should_change_password is not UNSET:
@@ -81,17 +85,22 @@ class UpdateUserDto:
         d = src_dict.copy()
         id = d.pop("id")
 
+        _avatar_color = d.pop("avatarColor", UNSET)
+        avatar_color: Union[Unset, UserAvatarColor]
+        if isinstance(_avatar_color, Unset):
+            avatar_color = UNSET
+        else:
+            avatar_color = UserAvatarColor(_avatar_color)
+
         email = d.pop("email", UNSET)
 
         external_path = d.pop("externalPath", UNSET)
 
-        first_name = d.pop("firstName", UNSET)
-
         is_admin = d.pop("isAdmin", UNSET)
 
-        last_name = d.pop("lastName", UNSET)
-
         memories_enabled = d.pop("memoriesEnabled", UNSET)
+
+        name = d.pop("name", UNSET)
 
         password = d.pop("password", UNSET)
 
@@ -101,12 +110,12 @@ class UpdateUserDto:
 
         update_user_dto = cls(
             id=id,
+            avatar_color=avatar_color,
             email=email,
             external_path=external_path,
-            first_name=first_name,
             is_admin=is_admin,
-            last_name=last_name,
             memories_enabled=memories_enabled,
+            name=name,
             password=password,
             should_change_password=should_change_password,
             storage_label=storage_label,

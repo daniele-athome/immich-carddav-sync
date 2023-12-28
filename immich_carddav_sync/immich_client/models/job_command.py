@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class JobCommand(str, Enum):
+    CLEAR_FAILED = "clear-failed"
     EMPTY = "empty"
     PAUSE = "pause"
     RESUME = "resume"

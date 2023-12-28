@@ -1,3 +1,4 @@
+import datetime
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
@@ -11,11 +12,13 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
+    skip: Union[Unset, None, int] = UNSET,
+    take: Union[Unset, None, int] = UNSET,
     user_id: Union[Unset, None, str] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
-    without_thumbs: Union[Unset, None, bool] = UNSET,
-    skip: Union[Unset, None, float] = UNSET,
+    updated_after: Union[Unset, None, datetime.datetime] = UNSET,
+    updated_before: Union[Unset, None, datetime.datetime] = UNSET,
     if_none_match: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
     headers = {}
@@ -23,15 +26,27 @@ def _get_kwargs(
         headers["if-none-match"] = if_none_match
 
     params: Dict[str, Any] = {}
+    params["skip"] = skip
+
+    params["take"] = take
+
     params["userId"] = user_id
 
     params["isFavorite"] = is_favorite
 
     params["isArchived"] = is_archived
 
-    params["withoutThumbs"] = without_thumbs
+    json_updated_after: Union[Unset, None, str] = UNSET
+    if not isinstance(updated_after, Unset):
+        json_updated_after = updated_after.isoformat() if updated_after else None
 
-    params["skip"] = skip
+    params["updatedAfter"] = json_updated_after
+
+    json_updated_before: Union[Unset, None, str] = UNSET
+    if not isinstance(updated_before, Unset):
+        json_updated_before = updated_before.isoformat() if updated_before else None
+
+    params["updatedBefore"] = json_updated_before
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -75,21 +90,25 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    skip: Union[Unset, None, int] = UNSET,
+    take: Union[Unset, None, int] = UNSET,
     user_id: Union[Unset, None, str] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
-    without_thumbs: Union[Unset, None, bool] = UNSET,
-    skip: Union[Unset, None, float] = UNSET,
+    updated_after: Union[Unset, None, datetime.datetime] = UNSET,
+    updated_before: Union[Unset, None, datetime.datetime] = UNSET,
     if_none_match: Union[Unset, str] = UNSET,
 ) -> Response[List["AssetResponseDto"]]:
     """Get all AssetEntity belong to the user
 
     Args:
+        skip (Union[Unset, None, int]):
+        take (Union[Unset, None, int]):
         user_id (Union[Unset, None, str]):
         is_favorite (Union[Unset, None, bool]):
         is_archived (Union[Unset, None, bool]):
-        without_thumbs (Union[Unset, None, bool]):
-        skip (Union[Unset, None, float]):
+        updated_after (Union[Unset, None, datetime.datetime]):
+        updated_before (Union[Unset, None, datetime.datetime]):
         if_none_match (Union[Unset, str]):
 
     Raises:
@@ -101,11 +120,13 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        skip=skip,
+        take=take,
         user_id=user_id,
         is_favorite=is_favorite,
         is_archived=is_archived,
-        without_thumbs=without_thumbs,
-        skip=skip,
+        updated_after=updated_after,
+        updated_before=updated_before,
         if_none_match=if_none_match,
     )
 
@@ -119,21 +140,25 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    skip: Union[Unset, None, int] = UNSET,
+    take: Union[Unset, None, int] = UNSET,
     user_id: Union[Unset, None, str] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
-    without_thumbs: Union[Unset, None, bool] = UNSET,
-    skip: Union[Unset, None, float] = UNSET,
+    updated_after: Union[Unset, None, datetime.datetime] = UNSET,
+    updated_before: Union[Unset, None, datetime.datetime] = UNSET,
     if_none_match: Union[Unset, str] = UNSET,
 ) -> Optional[List["AssetResponseDto"]]:
     """Get all AssetEntity belong to the user
 
     Args:
+        skip (Union[Unset, None, int]):
+        take (Union[Unset, None, int]):
         user_id (Union[Unset, None, str]):
         is_favorite (Union[Unset, None, bool]):
         is_archived (Union[Unset, None, bool]):
-        without_thumbs (Union[Unset, None, bool]):
-        skip (Union[Unset, None, float]):
+        updated_after (Union[Unset, None, datetime.datetime]):
+        updated_before (Union[Unset, None, datetime.datetime]):
         if_none_match (Union[Unset, str]):
 
     Raises:
@@ -146,11 +171,13 @@ def sync(
 
     return sync_detailed(
         client=client,
+        skip=skip,
+        take=take,
         user_id=user_id,
         is_favorite=is_favorite,
         is_archived=is_archived,
-        without_thumbs=without_thumbs,
-        skip=skip,
+        updated_after=updated_after,
+        updated_before=updated_before,
         if_none_match=if_none_match,
     ).parsed
 
@@ -158,21 +185,25 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    skip: Union[Unset, None, int] = UNSET,
+    take: Union[Unset, None, int] = UNSET,
     user_id: Union[Unset, None, str] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
-    without_thumbs: Union[Unset, None, bool] = UNSET,
-    skip: Union[Unset, None, float] = UNSET,
+    updated_after: Union[Unset, None, datetime.datetime] = UNSET,
+    updated_before: Union[Unset, None, datetime.datetime] = UNSET,
     if_none_match: Union[Unset, str] = UNSET,
 ) -> Response[List["AssetResponseDto"]]:
     """Get all AssetEntity belong to the user
 
     Args:
+        skip (Union[Unset, None, int]):
+        take (Union[Unset, None, int]):
         user_id (Union[Unset, None, str]):
         is_favorite (Union[Unset, None, bool]):
         is_archived (Union[Unset, None, bool]):
-        without_thumbs (Union[Unset, None, bool]):
-        skip (Union[Unset, None, float]):
+        updated_after (Union[Unset, None, datetime.datetime]):
+        updated_before (Union[Unset, None, datetime.datetime]):
         if_none_match (Union[Unset, str]):
 
     Raises:
@@ -184,11 +215,13 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        skip=skip,
+        take=take,
         user_id=user_id,
         is_favorite=is_favorite,
         is_archived=is_archived,
-        without_thumbs=without_thumbs,
-        skip=skip,
+        updated_after=updated_after,
+        updated_before=updated_before,
         if_none_match=if_none_match,
     )
 
@@ -200,21 +233,25 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    skip: Union[Unset, None, int] = UNSET,
+    take: Union[Unset, None, int] = UNSET,
     user_id: Union[Unset, None, str] = UNSET,
     is_favorite: Union[Unset, None, bool] = UNSET,
     is_archived: Union[Unset, None, bool] = UNSET,
-    without_thumbs: Union[Unset, None, bool] = UNSET,
-    skip: Union[Unset, None, float] = UNSET,
+    updated_after: Union[Unset, None, datetime.datetime] = UNSET,
+    updated_before: Union[Unset, None, datetime.datetime] = UNSET,
     if_none_match: Union[Unset, str] = UNSET,
 ) -> Optional[List["AssetResponseDto"]]:
     """Get all AssetEntity belong to the user
 
     Args:
+        skip (Union[Unset, None, int]):
+        take (Union[Unset, None, int]):
         user_id (Union[Unset, None, str]):
         is_favorite (Union[Unset, None, bool]):
         is_archived (Union[Unset, None, bool]):
-        without_thumbs (Union[Unset, None, bool]):
-        skip (Union[Unset, None, float]):
+        updated_after (Union[Unset, None, datetime.datetime]):
+        updated_before (Union[Unset, None, datetime.datetime]):
         if_none_match (Union[Unset, str]):
 
     Raises:
@@ -228,11 +265,13 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            skip=skip,
+            take=take,
             user_id=user_id,
             is_favorite=is_favorite,
             is_archived=is_archived,
-            without_thumbs=without_thumbs,
-            skip=skip,
+            updated_after=updated_after,
+            updated_before=updated_before,
             if_none_match=if_none_match,
         )
     ).parsed

@@ -26,6 +26,7 @@ class AlbumResponseDto:
         description (str):
         has_shared_link (bool):
         id (str):
+        is_activity_enabled (bool):
         owner (UserResponseDto):
         owner_id (str):
         shared (bool):
@@ -44,6 +45,7 @@ class AlbumResponseDto:
     description: str
     has_shared_link: bool
     id: str
+    is_activity_enabled: bool
     owner: "UserResponseDto"
     owner_id: str
     shared: bool
@@ -69,6 +71,7 @@ class AlbumResponseDto:
         description = self.description
         has_shared_link = self.has_shared_link
         id = self.id
+        is_activity_enabled = self.is_activity_enabled
         owner = self.owner.to_dict()
 
         owner_id = self.owner_id
@@ -105,6 +108,7 @@ class AlbumResponseDto:
                 "description": description,
                 "hasSharedLink": has_shared_link,
                 "id": id,
+                "isActivityEnabled": is_activity_enabled,
                 "owner": owner,
                 "ownerId": owner_id,
                 "shared": shared,
@@ -146,6 +150,8 @@ class AlbumResponseDto:
         has_shared_link = d.pop("hasSharedLink")
 
         id = d.pop("id")
+
+        is_activity_enabled = d.pop("isActivityEnabled")
 
         owner = UserResponseDto.from_dict(d.pop("owner"))
 
@@ -193,6 +199,7 @@ class AlbumResponseDto:
             description=description,
             has_shared_link=has_shared_link,
             id=id,
+            is_activity_enabled=is_activity_enabled,
             owner=owner,
             owner_id=owner_id,
             shared=shared,

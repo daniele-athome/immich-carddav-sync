@@ -5,15 +5,13 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.user_response_dto import UserResponseDto
+from ...models.partner_response_dto import PartnerResponseDto
 from ...types import Response
 
 
 def _get_kwargs(
     id: str,
 ) -> Dict[str, Any]:
-    pass
-
     return {
         "method": "post",
         "url": "/partner/{id}".format(
@@ -24,9 +22,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[UserResponseDto]:
+) -> Optional[PartnerResponseDto]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = UserResponseDto.from_dict(response.json())
+        response_201 = PartnerResponseDto.from_dict(response.json())
 
         return response_201
     if client.raise_on_unexpected_status:
@@ -37,7 +35,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[UserResponseDto]:
+) -> Response[PartnerResponseDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +48,7 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[UserResponseDto]:
+) -> Response[PartnerResponseDto]:
     """
     Args:
         id (str):
@@ -60,7 +58,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[UserResponseDto]
+        Response[PartnerResponseDto]
     """
 
     kwargs = _get_kwargs(
@@ -78,7 +76,7 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[UserResponseDto]:
+) -> Optional[PartnerResponseDto]:
     """
     Args:
         id (str):
@@ -88,7 +86,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        UserResponseDto
+        PartnerResponseDto
     """
 
     return sync_detailed(
@@ -101,7 +99,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[UserResponseDto]:
+) -> Response[PartnerResponseDto]:
     """
     Args:
         id (str):
@@ -111,7 +109,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[UserResponseDto]
+        Response[PartnerResponseDto]
     """
 
     kwargs = _get_kwargs(
@@ -127,7 +125,7 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[UserResponseDto]:
+) -> Optional[PartnerResponseDto]:
     """
     Args:
         id (str):
@@ -137,7 +135,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        UserResponseDto
+        PartnerResponseDto
     """
 
     return (
