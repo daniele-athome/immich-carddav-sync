@@ -1,15 +1,15 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.activity_response_dto_type import ActivityResponseDtoType
+from ..models.reaction_type import ReactionType
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.user_dto import UserDto
+    from ..models.user_response_dto import UserResponseDto
 
 
 T = TypeVar("T", bound="ActivityResponseDto")
@@ -19,42 +19,49 @@ T = TypeVar("T", bound="ActivityResponseDto")
 class ActivityResponseDto:
     """
     Attributes:
+        asset_id (Union[None, str]):
         created_at (datetime.datetime):
         id (str):
-        type (ActivityResponseDtoType):
-        user (UserDto):
-        asset_id (Optional[str]):
-        comment (Union[Unset, None, str]):
+        type (ReactionType):
+        user (UserResponseDto):
+        comment (Union[None, Unset, str]):
     """
 
+    asset_id: Union[None, str]
     created_at: datetime.datetime
     id: str
-    type: ActivityResponseDtoType
-    user: "UserDto"
-    asset_id: Optional[str]
-    comment: Union[Unset, None, str] = UNSET
+    type: ReactionType
+    user: "UserResponseDto"
+    comment: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        asset_id: Union[None, str]
+        asset_id = self.asset_id
+
         created_at = self.created_at.isoformat()
 
         id = self.id
+
         type = self.type.value
 
         user = self.user.to_dict()
 
-        asset_id = self.asset_id
-        comment = self.comment
+        comment: Union[None, Unset, str]
+        if isinstance(self.comment, Unset):
+            comment = UNSET
+        else:
+            comment = self.comment
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "assetId": asset_id,
                 "createdAt": created_at,
                 "id": id,
                 "type": type,
                 "user": user,
-                "assetId": asset_id,
             }
         )
         if comment is not UNSET:
@@ -64,27 +71,40 @@ class ActivityResponseDto:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.user_dto import UserDto
+        from ..models.user_response_dto import UserResponseDto
 
         d = src_dict.copy()
+
+        def _parse_asset_id(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        asset_id = _parse_asset_id(d.pop("assetId"))
+
         created_at = isoparse(d.pop("createdAt"))
 
         id = d.pop("id")
 
-        type = ActivityResponseDtoType(d.pop("type"))
+        type = ReactionType(d.pop("type"))
 
-        user = UserDto.from_dict(d.pop("user"))
+        user = UserResponseDto.from_dict(d.pop("user"))
 
-        asset_id = d.pop("assetId")
+        def _parse_comment(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        comment = d.pop("comment", UNSET)
+        comment = _parse_comment(d.pop("comment", UNSET))
 
         activity_response_dto = cls(
+            asset_id=asset_id,
             created_at=created_at,
             id=id,
             type=type,
             user=user,
-            asset_id=asset_id,
             comment=comment,
         )
 

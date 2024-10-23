@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -11,6 +11,7 @@ class UsageByUserDto:
     """
     Attributes:
         photos (int):
+        quota_size_in_bytes (Union[None, int]):
         usage (int):
         user_id (str):
         user_name (str):
@@ -18,6 +19,7 @@ class UsageByUserDto:
     """
 
     photos: int
+    quota_size_in_bytes: Union[None, int]
     usage: int
     user_id: str
     user_name: str
@@ -26,9 +28,16 @@ class UsageByUserDto:
 
     def to_dict(self) -> Dict[str, Any]:
         photos = self.photos
+
+        quota_size_in_bytes: Union[None, int]
+        quota_size_in_bytes = self.quota_size_in_bytes
+
         usage = self.usage
+
         user_id = self.user_id
+
         user_name = self.user_name
+
         videos = self.videos
 
         field_dict: Dict[str, Any] = {}
@@ -36,6 +45,7 @@ class UsageByUserDto:
         field_dict.update(
             {
                 "photos": photos,
+                "quotaSizeInBytes": quota_size_in_bytes,
                 "usage": usage,
                 "userId": user_id,
                 "userName": user_name,
@@ -50,6 +60,13 @@ class UsageByUserDto:
         d = src_dict.copy()
         photos = d.pop("photos")
 
+        def _parse_quota_size_in_bytes(data: object) -> Union[None, int]:
+            if data is None:
+                return data
+            return cast(Union[None, int], data)
+
+        quota_size_in_bytes = _parse_quota_size_in_bytes(d.pop("quotaSizeInBytes"))
+
         usage = d.pop("usage")
 
         user_id = d.pop("userId")
@@ -60,6 +77,7 @@ class UsageByUserDto:
 
         usage_by_user_dto = cls(
             photos=photos,
+            quota_size_in_bytes=quota_size_in_bytes,
             usage=usage,
             user_id=user_id,
             user_name=user_name,

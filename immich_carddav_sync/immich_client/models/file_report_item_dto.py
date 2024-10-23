@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Type, TypeVar, Union
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +15,14 @@ T = TypeVar("T", bound="FileReportItemDto")
 class FileReportItemDto:
     """
     Attributes:
-        entity_id (str):
+        entity_id (UUID):
         entity_type (PathEntityType):
         path_type (PathType):
         path_value (str):
         checksum (Union[Unset, str]):
     """
 
-    entity_id: str
+    entity_id: UUID
     entity_type: PathEntityType
     path_type: PathType
     path_value: str
@@ -29,12 +30,14 @@ class FileReportItemDto:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        entity_id = self.entity_id
+        entity_id = str(self.entity_id)
+
         entity_type = self.entity_type.value
 
         path_type = self.path_type.value
 
         path_value = self.path_value
+
         checksum = self.checksum
 
         field_dict: Dict[str, Any] = {}
@@ -55,7 +58,7 @@ class FileReportItemDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        entity_id = d.pop("entityId")
+        entity_id = UUID(d.pop("entityId"))
 
         entity_type = PathEntityType(d.pop("entityType"))
 

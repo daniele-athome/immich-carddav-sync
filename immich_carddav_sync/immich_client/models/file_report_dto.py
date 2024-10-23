@@ -28,7 +28,6 @@ class FileReportDto:
         orphans = []
         for orphans_item_data in self.orphans:
             orphans_item = orphans_item_data.to_dict()
-
             orphans.append(orphans_item)
 
         field_dict: Dict[str, Any] = {}

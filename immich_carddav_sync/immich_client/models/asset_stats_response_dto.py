@@ -22,7 +22,9 @@ class AssetStatsResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         images = self.images
+
         total = self.total
+
         videos = self.videos
 
         field_dict: Dict[str, Any] = {}

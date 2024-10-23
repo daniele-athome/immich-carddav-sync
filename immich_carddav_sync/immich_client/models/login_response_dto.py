@@ -30,11 +30,17 @@ class LoginResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         access_token = self.access_token
+
         is_admin = self.is_admin
+
         name = self.name
+
         profile_image_path = self.profile_image_path
+
         should_change_password = self.should_change_password
+
         user_email = self.user_email
+
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}

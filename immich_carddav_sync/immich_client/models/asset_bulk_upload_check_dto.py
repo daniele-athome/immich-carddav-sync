@@ -24,7 +24,6 @@ class AssetBulkUploadCheckDto:
         assets = []
         for assets_item_data in self.assets:
             assets_item = assets_item_data.to_dict()
-
             assets.append(assets_item)
 
         field_dict: Dict[str, Any] = {}

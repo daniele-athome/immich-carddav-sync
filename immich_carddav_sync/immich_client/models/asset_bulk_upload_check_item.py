@@ -20,6 +20,7 @@ class AssetBulkUploadCheckItem:
 
     def to_dict(self) -> Dict[str, Any]:
         checksum = self.checksum
+
         id = self.id
 
         field_dict: Dict[str, Any] = {}

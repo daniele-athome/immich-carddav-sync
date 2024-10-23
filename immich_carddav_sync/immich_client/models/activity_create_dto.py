@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Type, TypeVar, Union
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,23 +14,27 @@ T = TypeVar("T", bound="ActivityCreateDto")
 class ActivityCreateDto:
     """
     Attributes:
-        album_id (str):
+        album_id (UUID):
         type (ReactionType):
-        asset_id (Union[Unset, str]):
+        asset_id (Union[Unset, UUID]):
         comment (Union[Unset, str]):
     """
 
-    album_id: str
+    album_id: UUID
     type: ReactionType
-    asset_id: Union[Unset, str] = UNSET
+    asset_id: Union[Unset, UUID] = UNSET
     comment: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        album_id = self.album_id
+        album_id = str(self.album_id)
+
         type = self.type.value
 
-        asset_id = self.asset_id
+        asset_id: Union[Unset, str] = UNSET
+        if not isinstance(self.asset_id, Unset):
+            asset_id = str(self.asset_id)
+
         comment = self.comment
 
         field_dict: Dict[str, Any] = {}
@@ -50,11 +55,16 @@ class ActivityCreateDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        album_id = d.pop("albumId")
+        album_id = UUID(d.pop("albumId"))
 
         type = ReactionType(d.pop("type"))
 
-        asset_id = d.pop("assetId", UNSET)
+        _asset_id = d.pop("assetId", UNSET)
+        asset_id: Union[Unset, UUID]
+        if isinstance(_asset_id, Unset):
+            asset_id = UNSET
+        else:
+            asset_id = UUID(_asset_id)
 
         comment = d.pop("comment", UNSET)
 

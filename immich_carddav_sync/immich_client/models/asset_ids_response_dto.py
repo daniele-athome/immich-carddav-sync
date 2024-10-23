@@ -25,7 +25,9 @@ class AssetIdsResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         asset_id = self.asset_id
+
         success = self.success
+
         error: Union[Unset, str] = UNSET
         if not isinstance(self.error, Unset):
             error = self.error.value

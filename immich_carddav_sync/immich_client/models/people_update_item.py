@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,7 +15,7 @@ class PeopleUpdateItem:
     """
     Attributes:
         id (str): Person id.
-        birth_date (Union[Unset, None, datetime.date]): Person date of birth.
+        birth_date (Union[None, Unset, datetime.date]): Person date of birth.
             Note: the mobile app cannot currently set the birth date to null.
         feature_face_asset_id (Union[Unset, str]): Asset is used to get the feature face thumbnail.
         is_hidden (Union[Unset, bool]): Person visibility
@@ -23,7 +23,7 @@ class PeopleUpdateItem:
     """
 
     id: str
-    birth_date: Union[Unset, None, datetime.date] = UNSET
+    birth_date: Union[None, Unset, datetime.date] = UNSET
     feature_face_asset_id: Union[Unset, str] = UNSET
     is_hidden: Union[Unset, bool] = UNSET
     name: Union[Unset, str] = UNSET
@@ -31,12 +31,19 @@ class PeopleUpdateItem:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
-        birth_date: Union[Unset, None, str] = UNSET
-        if not isinstance(self.birth_date, Unset):
-            birth_date = self.birth_date.isoformat() if self.birth_date else None
+
+        birth_date: Union[None, Unset, str]
+        if isinstance(self.birth_date, Unset):
+            birth_date = UNSET
+        elif isinstance(self.birth_date, datetime.date):
+            birth_date = self.birth_date.isoformat()
+        else:
+            birth_date = self.birth_date
 
         feature_face_asset_id = self.feature_face_asset_id
+
         is_hidden = self.is_hidden
+
         name = self.name
 
         field_dict: Dict[str, Any] = {}
@@ -62,14 +69,22 @@ class PeopleUpdateItem:
         d = src_dict.copy()
         id = d.pop("id")
 
-        _birth_date = d.pop("birthDate", UNSET)
-        birth_date: Union[Unset, None, datetime.date]
-        if _birth_date is None:
-            birth_date = None
-        elif isinstance(_birth_date, Unset):
-            birth_date = UNSET
-        else:
-            birth_date = isoparse(_birth_date).date()
+        def _parse_birth_date(data: object) -> Union[None, Unset, datetime.date]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                birth_date_type_0 = isoparse(data).date()
+
+                return birth_date_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, Unset, datetime.date], data)
+
+        birth_date = _parse_birth_date(d.pop("birthDate", UNSET))
 
         feature_face_asset_id = d.pop("featureFaceAssetId", UNSET)
 

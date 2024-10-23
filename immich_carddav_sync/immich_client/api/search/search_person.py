@@ -12,26 +12,29 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     name: str,
-    with_hidden: Union[Unset, None, bool] = UNSET,
+    with_hidden: Union[Unset, bool] = UNSET,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["name"] = name
 
     params["withHidden"] = with_hidden
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/search/person",
         "params": params,
     }
 
+    return _kwargs
+
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[List["PersonResponseDto"]]:
-    if response.status_code == HTTPStatus.OK:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -61,12 +64,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     name: str,
-    with_hidden: Union[Unset, None, bool] = UNSET,
+    with_hidden: Union[Unset, bool] = UNSET,
 ) -> Response[List["PersonResponseDto"]]:
     """
     Args:
         name (str):
-        with_hidden (Union[Unset, None, bool]):
+        with_hidden (Union[Unset, bool]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,12 +95,12 @@ def sync(
     *,
     client: AuthenticatedClient,
     name: str,
-    with_hidden: Union[Unset, None, bool] = UNSET,
+    with_hidden: Union[Unset, bool] = UNSET,
 ) -> Optional[List["PersonResponseDto"]]:
     """
     Args:
         name (str):
-        with_hidden (Union[Unset, None, bool]):
+        with_hidden (Union[Unset, bool]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -118,12 +121,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     name: str,
-    with_hidden: Union[Unset, None, bool] = UNSET,
+    with_hidden: Union[Unset, bool] = UNSET,
 ) -> Response[List["PersonResponseDto"]]:
     """
     Args:
         name (str):
-        with_hidden (Union[Unset, None, bool]):
+        with_hidden (Union[Unset, bool]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -147,12 +150,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     name: str,
-    with_hidden: Union[Unset, None, bool] = UNSET,
+    with_hidden: Union[Unset, bool] = UNSET,
 ) -> Optional[List["PersonResponseDto"]]:
     """
     Args:
         name (str):
-        with_hidden (Union[Unset, None, bool]):
+        with_hidden (Union[Unset, bool]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -22,6 +22,7 @@ class SystemConfigLoggingDto:
 
     def to_dict(self) -> Dict[str, Any]:
         enabled = self.enabled
+
         level = self.level.value
 
         field_dict: Dict[str, Any] = {}

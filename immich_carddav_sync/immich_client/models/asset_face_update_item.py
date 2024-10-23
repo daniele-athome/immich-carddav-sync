@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Type, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -10,17 +11,18 @@ T = TypeVar("T", bound="AssetFaceUpdateItem")
 class AssetFaceUpdateItem:
     """
     Attributes:
-        asset_id (str):
-        person_id (str):
+        asset_id (UUID):
+        person_id (UUID):
     """
 
-    asset_id: str
-    person_id: str
+    asset_id: UUID
+    person_id: UUID
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        asset_id = self.asset_id
-        person_id = self.person_id
+        asset_id = str(self.asset_id)
+
+        person_id = str(self.person_id)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -36,9 +38,9 @@ class AssetFaceUpdateItem:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        asset_id = d.pop("assetId")
+        asset_id = UUID(d.pop("assetId"))
 
-        person_id = d.pop("personId")
+        person_id = UUID(d.pop("personId"))
 
         asset_face_update_item = cls(
             asset_id=asset_id,

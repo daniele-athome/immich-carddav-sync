@@ -9,6 +9,7 @@ from ..models.tone_mapping import ToneMapping
 from ..models.transcode_hw_accel import TranscodeHWAccel
 from ..models.transcode_policy import TranscodePolicy
 from ..models.video_codec import VideoCodec
+from ..models.video_container import VideoContainer
 
 T = TypeVar("T", bound="SystemConfigFFmpegDto")
 
@@ -18,12 +19,17 @@ class SystemConfigFFmpegDto:
     """
     Attributes:
         accel (TranscodeHWAccel):
+        accel_decode (bool):
+        accepted_audio_codecs (List[AudioCodec]):
+        accepted_containers (List[VideoContainer]):
+        accepted_video_codecs (List[VideoCodec]):
         bframes (int):
         cq_mode (CQMode):
         crf (int):
         gop_size (int):
         max_bitrate (str):
         npl (int):
+        preferred_hw_device (str):
         preset (str):
         refs (int):
         target_audio_codec (AudioCodec):
@@ -37,12 +43,17 @@ class SystemConfigFFmpegDto:
     """
 
     accel: TranscodeHWAccel
+    accel_decode: bool
+    accepted_audio_codecs: List[AudioCodec]
+    accepted_containers: List[VideoContainer]
+    accepted_video_codecs: List[VideoCodec]
     bframes: int
     cq_mode: CQMode
     crf: int
     gop_size: int
     max_bitrate: str
     npl: int
+    preferred_hw_device: str
     preset: str
     refs: int
     target_audio_codec: AudioCodec
@@ -58,22 +69,51 @@ class SystemConfigFFmpegDto:
     def to_dict(self) -> Dict[str, Any]:
         accel = self.accel.value
 
+        accel_decode = self.accel_decode
+
+        accepted_audio_codecs = []
+        for accepted_audio_codecs_item_data in self.accepted_audio_codecs:
+            accepted_audio_codecs_item = accepted_audio_codecs_item_data.value
+            accepted_audio_codecs.append(accepted_audio_codecs_item)
+
+        accepted_containers = []
+        for accepted_containers_item_data in self.accepted_containers:
+            accepted_containers_item = accepted_containers_item_data.value
+            accepted_containers.append(accepted_containers_item)
+
+        accepted_video_codecs = []
+        for accepted_video_codecs_item_data in self.accepted_video_codecs:
+            accepted_video_codecs_item = accepted_video_codecs_item_data.value
+            accepted_video_codecs.append(accepted_video_codecs_item)
+
         bframes = self.bframes
+
         cq_mode = self.cq_mode.value
 
         crf = self.crf
+
         gop_size = self.gop_size
+
         max_bitrate = self.max_bitrate
+
         npl = self.npl
+
+        preferred_hw_device = self.preferred_hw_device
+
         preset = self.preset
+
         refs = self.refs
+
         target_audio_codec = self.target_audio_codec.value
 
         target_resolution = self.target_resolution
+
         target_video_codec = self.target_video_codec.value
 
         temporal_aq = self.temporal_aq
+
         threads = self.threads
+
         tonemap = self.tonemap.value
 
         transcode = self.transcode.value
@@ -85,12 +125,17 @@ class SystemConfigFFmpegDto:
         field_dict.update(
             {
                 "accel": accel,
+                "accelDecode": accel_decode,
+                "acceptedAudioCodecs": accepted_audio_codecs,
+                "acceptedContainers": accepted_containers,
+                "acceptedVideoCodecs": accepted_video_codecs,
                 "bframes": bframes,
                 "cqMode": cq_mode,
                 "crf": crf,
                 "gopSize": gop_size,
                 "maxBitrate": max_bitrate,
                 "npl": npl,
+                "preferredHwDevice": preferred_hw_device,
                 "preset": preset,
                 "refs": refs,
                 "targetAudioCodec": target_audio_codec,
@@ -111,6 +156,29 @@ class SystemConfigFFmpegDto:
         d = src_dict.copy()
         accel = TranscodeHWAccel(d.pop("accel"))
 
+        accel_decode = d.pop("accelDecode")
+
+        accepted_audio_codecs = []
+        _accepted_audio_codecs = d.pop("acceptedAudioCodecs")
+        for accepted_audio_codecs_item_data in _accepted_audio_codecs:
+            accepted_audio_codecs_item = AudioCodec(accepted_audio_codecs_item_data)
+
+            accepted_audio_codecs.append(accepted_audio_codecs_item)
+
+        accepted_containers = []
+        _accepted_containers = d.pop("acceptedContainers")
+        for accepted_containers_item_data in _accepted_containers:
+            accepted_containers_item = VideoContainer(accepted_containers_item_data)
+
+            accepted_containers.append(accepted_containers_item)
+
+        accepted_video_codecs = []
+        _accepted_video_codecs = d.pop("acceptedVideoCodecs")
+        for accepted_video_codecs_item_data in _accepted_video_codecs:
+            accepted_video_codecs_item = VideoCodec(accepted_video_codecs_item_data)
+
+            accepted_video_codecs.append(accepted_video_codecs_item)
+
         bframes = d.pop("bframes")
 
         cq_mode = CQMode(d.pop("cqMode"))
@@ -122,6 +190,8 @@ class SystemConfigFFmpegDto:
         max_bitrate = d.pop("maxBitrate")
 
         npl = d.pop("npl")
+
+        preferred_hw_device = d.pop("preferredHwDevice")
 
         preset = d.pop("preset")
 
@@ -145,12 +215,17 @@ class SystemConfigFFmpegDto:
 
         system_config_f_fmpeg_dto = cls(
             accel=accel,
+            accel_decode=accel_decode,
+            accepted_audio_codecs=accepted_audio_codecs,
+            accepted_containers=accepted_containers,
+            accepted_video_codecs=accepted_video_codecs,
             bframes=bframes,
             cq_mode=cq_mode,
             crf=crf,
             gop_size=gop_size,
             max_bitrate=max_bitrate,
             npl=npl,
+            preferred_hw_device=preferred_hw_device,
             preset=preset,
             refs=refs,
             target_audio_codec=target_audio_codec,

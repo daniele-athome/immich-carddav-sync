@@ -10,16 +10,18 @@ from ...types import Response
 
 
 def _get_kwargs() -> Dict[str, Any]:
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/auth/logout",
     }
+
+    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[LogoutResponseDto]:
-    if response.status_code == HTTPStatus.OK:
+    if response.status_code == 200:
         response_200 = LogoutResponseDto.from_dict(response.json())
 
         return response_200

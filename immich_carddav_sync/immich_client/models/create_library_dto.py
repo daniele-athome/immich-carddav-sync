@@ -1,9 +1,9 @@
 from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.library_type import LibraryType
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CreateLibraryDto")
@@ -13,22 +13,20 @@ T = TypeVar("T", bound="CreateLibraryDto")
 class CreateLibraryDto:
     """
     Attributes:
-        type (LibraryType):
+        owner_id (UUID):
         exclusion_patterns (Union[Unset, List[str]]):
         import_paths (Union[Unset, List[str]]):
-        is_visible (Union[Unset, bool]):
         name (Union[Unset, str]):
     """
 
-    type: LibraryType
+    owner_id: UUID
     exclusion_patterns: Union[Unset, List[str]] = UNSET
     import_paths: Union[Unset, List[str]] = UNSET
-    is_visible: Union[Unset, bool] = UNSET
     name: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        type = self.type.value
+        owner_id = str(self.owner_id)
 
         exclusion_patterns: Union[Unset, List[str]] = UNSET
         if not isinstance(self.exclusion_patterns, Unset):
@@ -38,22 +36,19 @@ class CreateLibraryDto:
         if not isinstance(self.import_paths, Unset):
             import_paths = self.import_paths
 
-        is_visible = self.is_visible
         name = self.name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "type": type,
+                "ownerId": owner_id,
             }
         )
         if exclusion_patterns is not UNSET:
             field_dict["exclusionPatterns"] = exclusion_patterns
         if import_paths is not UNSET:
             field_dict["importPaths"] = import_paths
-        if is_visible is not UNSET:
-            field_dict["isVisible"] = is_visible
         if name is not UNSET:
             field_dict["name"] = name
 
@@ -62,21 +57,18 @@ class CreateLibraryDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        type = LibraryType(d.pop("type"))
+        owner_id = UUID(d.pop("ownerId"))
 
         exclusion_patterns = cast(List[str], d.pop("exclusionPatterns", UNSET))
 
         import_paths = cast(List[str], d.pop("importPaths", UNSET))
 
-        is_visible = d.pop("isVisible", UNSET)
-
         name = d.pop("name", UNSET)
 
         create_library_dto = cls(
-            type=type,
+            owner_id=owner_id,
             exclusion_patterns=exclusion_patterns,
             import_paths=import_paths,
-            is_visible=is_visible,
             name=name,
         )
 

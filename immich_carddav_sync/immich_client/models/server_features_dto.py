@@ -10,9 +10,11 @@ T = TypeVar("T", bound="ServerFeaturesDto")
 class ServerFeaturesDto:
     """
     Attributes:
-        clip_encode (bool):
         config_file (bool):
+        duplicate_detection (bool):
+        email (bool):
         facial_recognition (bool):
+        import_faces (bool):
         map_ (bool):
         oauth (bool):
         oauth_auto_launch (bool):
@@ -20,13 +22,15 @@ class ServerFeaturesDto:
         reverse_geocoding (bool):
         search (bool):
         sidecar (bool):
-        tag_image (bool):
+        smart_search (bool):
         trash (bool):
     """
 
-    clip_encode: bool
     config_file: bool
+    duplicate_detection: bool
+    email: bool
     facial_recognition: bool
+    import_faces: bool
     map_: bool
     oauth: bool
     oauth_auto_launch: bool
@@ -34,31 +38,48 @@ class ServerFeaturesDto:
     reverse_geocoding: bool
     search: bool
     sidecar: bool
-    tag_image: bool
+    smart_search: bool
     trash: bool
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        clip_encode = self.clip_encode
         config_file = self.config_file
+
+        duplicate_detection = self.duplicate_detection
+
+        email = self.email
+
         facial_recognition = self.facial_recognition
+
+        import_faces = self.import_faces
+
         map_ = self.map_
+
         oauth = self.oauth
+
         oauth_auto_launch = self.oauth_auto_launch
+
         password_login = self.password_login
+
         reverse_geocoding = self.reverse_geocoding
+
         search = self.search
+
         sidecar = self.sidecar
-        tag_image = self.tag_image
+
+        smart_search = self.smart_search
+
         trash = self.trash
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "clipEncode": clip_encode,
                 "configFile": config_file,
+                "duplicateDetection": duplicate_detection,
+                "email": email,
                 "facialRecognition": facial_recognition,
+                "importFaces": import_faces,
                 "map": map_,
                 "oauth": oauth,
                 "oauthAutoLaunch": oauth_auto_launch,
@@ -66,7 +87,7 @@ class ServerFeaturesDto:
                 "reverseGeocoding": reverse_geocoding,
                 "search": search,
                 "sidecar": sidecar,
-                "tagImage": tag_image,
+                "smartSearch": smart_search,
                 "trash": trash,
             }
         )
@@ -76,11 +97,15 @@ class ServerFeaturesDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        clip_encode = d.pop("clipEncode")
-
         config_file = d.pop("configFile")
 
+        duplicate_detection = d.pop("duplicateDetection")
+
+        email = d.pop("email")
+
         facial_recognition = d.pop("facialRecognition")
+
+        import_faces = d.pop("importFaces")
 
         map_ = d.pop("map")
 
@@ -96,14 +121,16 @@ class ServerFeaturesDto:
 
         sidecar = d.pop("sidecar")
 
-        tag_image = d.pop("tagImage")
+        smart_search = d.pop("smartSearch")
 
         trash = d.pop("trash")
 
         server_features_dto = cls(
-            clip_encode=clip_encode,
             config_file=config_file,
+            duplicate_detection=duplicate_detection,
+            email=email,
             facial_recognition=facial_recognition,
+            import_faces=import_faces,
             map_=map_,
             oauth=oauth,
             oauth_auto_launch=oauth_auto_launch,
@@ -111,7 +138,7 @@ class ServerFeaturesDto:
             reverse_geocoding=reverse_geocoding,
             search=search,
             sidecar=sidecar,
-            tag_image=tag_image,
+            smart_search=smart_search,
             trash=trash,
         )
 

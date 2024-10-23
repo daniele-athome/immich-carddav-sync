@@ -22,7 +22,9 @@ class SystemConfigMapDto:
 
     def to_dict(self) -> Dict[str, Any]:
         dark_style = self.dark_style
+
         enabled = self.enabled
+
         light_style = self.light_style
 
         field_dict: Dict[str, Any] = {}

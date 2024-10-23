@@ -4,7 +4,7 @@
 set -e
 rm -fr temp
 mkdir -p temp
-curl "https://raw.githubusercontent.com/immich-app/immich/v1.91.4/server/immich-openapi-specs.json" >immich-openapi-specs.json
+curl "https://raw.githubusercontent.com/immich-app/immich/v1.118.2/open-api/immich-openapi-specs.json" >immich-openapi-specs.json
 cd temp
 
 python3 -m venv venv

@@ -1,4 +1,5 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar, Union
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -12,16 +13,19 @@ T = TypeVar("T", bound="AssetBulkDeleteDto")
 class AssetBulkDeleteDto:
     """
     Attributes:
-        ids (List[str]):
+        ids (List[UUID]):
         force (Union[Unset, bool]):
     """
 
-    ids: List[str]
+    ids: List[UUID]
     force: Union[Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        ids = self.ids
+        ids = []
+        for ids_item_data in self.ids:
+            ids_item = str(ids_item_data)
+            ids.append(ids_item)
 
         force = self.force
 
@@ -40,7 +44,12 @@ class AssetBulkDeleteDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        ids = cast(List[str], d.pop("ids"))
+        ids = []
+        _ids = d.pop("ids")
+        for ids_item_data in _ids:
+            ids_item = UUID(ids_item_data)
+
+            ids.append(ids_item)
 
         force = d.pop("force", UNSET)
 

@@ -10,10 +10,10 @@ T = TypeVar("T", bound="LibraryStatsResponseDto")
 class LibraryStatsResponseDto:
     """
     Attributes:
-        photos (int):
-        total (int):
-        usage (int):
-        videos (int):
+        photos (int):  Default: 0.
+        total (int):  Default: 0.
+        usage (int):  Default: 0.
+        videos (int):  Default: 0.
     """
 
     photos: int = 0
@@ -24,8 +24,11 @@ class LibraryStatsResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         photos = self.photos
+
         total = self.total
+
         usage = self.usage
+
         videos = self.videos
 
         field_dict: Dict[str, Any] = {}

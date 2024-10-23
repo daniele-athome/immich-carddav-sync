@@ -1,4 +1,5 @@
-from typing import Any, Dict, List, Type, TypeVar, cast
+from typing import Any, Dict, List, Type, TypeVar
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -10,14 +11,17 @@ T = TypeVar("T", bound="AssetIdsDto")
 class AssetIdsDto:
     """
     Attributes:
-        asset_ids (List[str]):
+        asset_ids (List[UUID]):
     """
 
-    asset_ids: List[str]
+    asset_ids: List[UUID]
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        asset_ids = self.asset_ids
+        asset_ids = []
+        for asset_ids_item_data in self.asset_ids:
+            asset_ids_item = str(asset_ids_item_data)
+            asset_ids.append(asset_ids_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -32,7 +36,12 @@ class AssetIdsDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        asset_ids = cast(List[str], d.pop("assetIds"))
+        asset_ids = []
+        _asset_ids = d.pop("assetIds")
+        for asset_ids_item_data in _asset_ids:
+            asset_ids_item = UUID(asset_ids_item_data)
+
+            asset_ids.append(asset_ids_item)
 
         asset_ids_dto = cls(
             asset_ids=asset_ids,

@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,60 +24,77 @@ class SharedLinkResponseDto:
         allow_upload (bool):
         assets (List['AssetResponseDto']):
         created_at (datetime.datetime):
+        description (Union[None, str]):
+        expires_at (Union[None, datetime.datetime]):
         id (str):
         key (str):
+        password (Union[None, str]):
         show_metadata (bool):
         type (SharedLinkType):
         user_id (str):
         album (Union[Unset, AlbumResponseDto]):
-        description (Optional[str]):
-        expires_at (Optional[datetime.datetime]):
-        password (Optional[str]):
-        token (Union[Unset, None, str]):
+        token (Union[None, Unset, str]):
     """
 
     allow_download: bool
     allow_upload: bool
     assets: List["AssetResponseDto"]
     created_at: datetime.datetime
+    description: Union[None, str]
+    expires_at: Union[None, datetime.datetime]
     id: str
     key: str
+    password: Union[None, str]
     show_metadata: bool
     type: SharedLinkType
     user_id: str
-    description: Optional[str]
-    expires_at: Optional[datetime.datetime]
-    password: Optional[str]
     album: Union[Unset, "AlbumResponseDto"] = UNSET
-    token: Union[Unset, None, str] = UNSET
+    token: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         allow_download = self.allow_download
+
         allow_upload = self.allow_upload
+
         assets = []
         for assets_item_data in self.assets:
             assets_item = assets_item_data.to_dict()
-
             assets.append(assets_item)
 
         created_at = self.created_at.isoformat()
 
+        description: Union[None, str]
+        description = self.description
+
+        expires_at: Union[None, str]
+        if isinstance(self.expires_at, datetime.datetime):
+            expires_at = self.expires_at.isoformat()
+        else:
+            expires_at = self.expires_at
+
         id = self.id
+
         key = self.key
+
+        password: Union[None, str]
+        password = self.password
+
         show_metadata = self.show_metadata
+
         type = self.type.value
 
         user_id = self.user_id
+
         album: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.album, Unset):
             album = self.album.to_dict()
 
-        description = self.description
-        expires_at = self.expires_at.isoformat() if self.expires_at else None
-
-        password = self.password
-        token = self.token
+        token: Union[None, Unset, str]
+        if isinstance(self.token, Unset):
+            token = UNSET
+        else:
+            token = self.token
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -87,14 +104,14 @@ class SharedLinkResponseDto:
                 "allowUpload": allow_upload,
                 "assets": assets,
                 "createdAt": created_at,
+                "description": description,
+                "expiresAt": expires_at,
                 "id": id,
                 "key": key,
+                "password": password,
                 "showMetadata": show_metadata,
                 "type": type,
                 "userId": user_id,
-                "description": description,
-                "expiresAt": expires_at,
-                "password": password,
             }
         )
         if album is not UNSET:
@@ -123,9 +140,38 @@ class SharedLinkResponseDto:
 
         created_at = isoparse(d.pop("createdAt"))
 
+        def _parse_description(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        description = _parse_description(d.pop("description"))
+
+        def _parse_expires_at(data: object) -> Union[None, datetime.datetime]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                expires_at_type_0 = isoparse(data)
+
+                return expires_at_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, datetime.datetime], data)
+
+        expires_at = _parse_expires_at(d.pop("expiresAt"))
+
         id = d.pop("id")
 
         key = d.pop("key")
+
+        def _parse_password(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        password = _parse_password(d.pop("password"))
 
         show_metadata = d.pop("showMetadata")
 
@@ -140,33 +186,29 @@ class SharedLinkResponseDto:
         else:
             album = AlbumResponseDto.from_dict(_album)
 
-        description = d.pop("description")
+        def _parse_token(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        _expires_at = d.pop("expiresAt")
-        expires_at: Optional[datetime.datetime]
-        if _expires_at is None:
-            expires_at = None
-        else:
-            expires_at = isoparse(_expires_at)
-
-        password = d.pop("password")
-
-        token = d.pop("token", UNSET)
+        token = _parse_token(d.pop("token", UNSET))
 
         shared_link_response_dto = cls(
             allow_download=allow_download,
             allow_upload=allow_upload,
             assets=assets,
             created_at=created_at,
+            description=description,
+            expires_at=expires_at,
             id=id,
             key=key,
+            password=password,
             show_metadata=show_metadata,
             type=type,
             user_id=user_id,
             album=album,
-            description=description,
-            expires_at=expires_at,
-            password=password,
             token=token,
         )
 

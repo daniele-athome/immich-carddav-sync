@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,7 +20,7 @@ class SharedLinkEditDto:
             Setting this flag and not sending expiryAt is considered as null instead.
             Clients that can send null values can ignore this.
         description (Union[Unset, str]):
-        expires_at (Union[Unset, None, datetime.datetime]):
+        expires_at (Union[None, Unset, datetime.datetime]):
         password (Union[Unset, str]):
         show_metadata (Union[Unset, bool]):
     """
@@ -29,21 +29,30 @@ class SharedLinkEditDto:
     allow_upload: Union[Unset, bool] = UNSET
     change_expiry_time: Union[Unset, bool] = UNSET
     description: Union[Unset, str] = UNSET
-    expires_at: Union[Unset, None, datetime.datetime] = UNSET
+    expires_at: Union[None, Unset, datetime.datetime] = UNSET
     password: Union[Unset, str] = UNSET
     show_metadata: Union[Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         allow_download = self.allow_download
+
         allow_upload = self.allow_upload
+
         change_expiry_time = self.change_expiry_time
+
         description = self.description
-        expires_at: Union[Unset, None, str] = UNSET
-        if not isinstance(self.expires_at, Unset):
-            expires_at = self.expires_at.isoformat() if self.expires_at else None
+
+        expires_at: Union[None, Unset, str]
+        if isinstance(self.expires_at, Unset):
+            expires_at = UNSET
+        elif isinstance(self.expires_at, datetime.datetime):
+            expires_at = self.expires_at.isoformat()
+        else:
+            expires_at = self.expires_at
 
         password = self.password
+
         show_metadata = self.show_metadata
 
         field_dict: Dict[str, Any] = {}
@@ -77,14 +86,22 @@ class SharedLinkEditDto:
 
         description = d.pop("description", UNSET)
 
-        _expires_at = d.pop("expiresAt", UNSET)
-        expires_at: Union[Unset, None, datetime.datetime]
-        if _expires_at is None:
-            expires_at = None
-        elif isinstance(_expires_at, Unset):
-            expires_at = UNSET
-        else:
-            expires_at = isoparse(_expires_at)
+        def _parse_expires_at(data: object) -> Union[None, Unset, datetime.datetime]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                expires_at_type_0 = isoparse(data)
+
+                return expires_at_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, Unset, datetime.datetime], data)
+
+        expires_at = _parse_expires_at(d.pop("expiresAt", UNSET))
 
         password = d.pop("password", UNSET)
 

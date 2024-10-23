@@ -22,7 +22,9 @@ class SignUpDto:
 
     def to_dict(self) -> Dict[str, Any]:
         email = self.email
+
         name = self.name
+
         password = self.password
 
         field_dict: Dict[str, Any] = {}

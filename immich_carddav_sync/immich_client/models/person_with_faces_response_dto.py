@@ -1,9 +1,11 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.asset_face_without_person_response_dto import AssetFaceWithoutPersonResponseDto
@@ -16,47 +18,62 @@ T = TypeVar("T", bound="PersonWithFacesResponseDto")
 class PersonWithFacesResponseDto:
     """
     Attributes:
+        birth_date (Union[None, datetime.date]):
         faces (List['AssetFaceWithoutPersonResponseDto']):
         id (str):
         is_hidden (bool):
         name (str):
         thumbnail_path (str):
-        birth_date (Optional[datetime.date]):
+        updated_at (Union[Unset, datetime.datetime]): This property was added in v1.107.0
     """
 
+    birth_date: Union[None, datetime.date]
     faces: List["AssetFaceWithoutPersonResponseDto"]
     id: str
     is_hidden: bool
     name: str
     thumbnail_path: str
-    birth_date: Optional[datetime.date]
+    updated_at: Union[Unset, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        birth_date: Union[None, str]
+        if isinstance(self.birth_date, datetime.date):
+            birth_date = self.birth_date.isoformat()
+        else:
+            birth_date = self.birth_date
+
         faces = []
         for faces_item_data in self.faces:
             faces_item = faces_item_data.to_dict()
-
             faces.append(faces_item)
 
         id = self.id
+
         is_hidden = self.is_hidden
+
         name = self.name
+
         thumbnail_path = self.thumbnail_path
-        birth_date = self.birth_date.isoformat() if self.birth_date else None
+
+        updated_at: Union[Unset, str] = UNSET
+        if not isinstance(self.updated_at, Unset):
+            updated_at = self.updated_at.isoformat()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "birthDate": birth_date,
                 "faces": faces,
                 "id": id,
                 "isHidden": is_hidden,
                 "name": name,
                 "thumbnailPath": thumbnail_path,
-                "birthDate": birth_date,
             }
         )
+        if updated_at is not UNSET:
+            field_dict["updatedAt"] = updated_at
 
         return field_dict
 
@@ -65,6 +82,22 @@ class PersonWithFacesResponseDto:
         from ..models.asset_face_without_person_response_dto import AssetFaceWithoutPersonResponseDto
 
         d = src_dict.copy()
+
+        def _parse_birth_date(data: object) -> Union[None, datetime.date]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                birth_date_type_0 = isoparse(data).date()
+
+                return birth_date_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, datetime.date], data)
+
+        birth_date = _parse_birth_date(d.pop("birthDate"))
+
         faces = []
         _faces = d.pop("faces")
         for faces_item_data in _faces:
@@ -80,20 +113,21 @@ class PersonWithFacesResponseDto:
 
         thumbnail_path = d.pop("thumbnailPath")
 
-        _birth_date = d.pop("birthDate")
-        birth_date: Optional[datetime.date]
-        if _birth_date is None:
-            birth_date = None
+        _updated_at = d.pop("updatedAt", UNSET)
+        updated_at: Union[Unset, datetime.datetime]
+        if isinstance(_updated_at, Unset):
+            updated_at = UNSET
         else:
-            birth_date = isoparse(_birth_date).date()
+            updated_at = isoparse(_updated_at)
 
         person_with_faces_response_dto = cls(
+            birth_date=birth_date,
             faces=faces,
             id=id,
             is_hidden=is_hidden,
             name=name,
             thumbnail_path=thumbnail_path,
-            birth_date=birth_date,
+            updated_at=updated_at,
         )
 
         person_with_faces_response_dto.additional_properties = d

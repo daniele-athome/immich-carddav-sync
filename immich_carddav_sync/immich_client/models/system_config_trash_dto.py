@@ -20,6 +20,7 @@ class SystemConfigTrashDto:
 
     def to_dict(self) -> Dict[str, Any]:
         days = self.days
+
         enabled = self.enabled
 
         field_dict: Dict[str, Any] = {}

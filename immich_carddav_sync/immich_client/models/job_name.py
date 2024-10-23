@@ -3,11 +3,13 @@ from enum import Enum
 
 class JobName(str, Enum):
     BACKGROUNDTASK = "backgroundTask"
+    DUPLICATEDETECTION = "duplicateDetection"
+    FACEDETECTION = "faceDetection"
+    FACIALRECOGNITION = "facialRecognition"
     LIBRARY = "library"
     METADATAEXTRACTION = "metadataExtraction"
     MIGRATION = "migration"
-    OBJECTTAGGING = "objectTagging"
-    RECOGNIZEFACES = "recognizeFaces"
+    NOTIFICATIONS = "notifications"
     SEARCH = "search"
     SIDECAR = "sidecar"
     SMARTSEARCH = "smartSearch"

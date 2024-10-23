@@ -1,7 +1,9 @@
+import datetime
 from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 T = TypeVar("T", bound="CreateProfileImageResponseDto")
 
@@ -10,22 +12,28 @@ T = TypeVar("T", bound="CreateProfileImageResponseDto")
 class CreateProfileImageResponseDto:
     """
     Attributes:
+        profile_changed_at (datetime.datetime):
         profile_image_path (str):
         user_id (str):
     """
 
+    profile_changed_at: datetime.datetime
     profile_image_path: str
     user_id: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        profile_changed_at = self.profile_changed_at.isoformat()
+
         profile_image_path = self.profile_image_path
+
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "profileChangedAt": profile_changed_at,
                 "profileImagePath": profile_image_path,
                 "userId": user_id,
             }
@@ -36,11 +44,14 @@ class CreateProfileImageResponseDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        profile_changed_at = isoparse(d.pop("profileChangedAt"))
+
         profile_image_path = d.pop("profileImagePath")
 
         user_id = d.pop("userId")
 
         create_profile_image_response_dto = cls(
+            profile_changed_at=profile_changed_at,
             profile_image_path=profile_image_path,
             user_id=user_id,
         )

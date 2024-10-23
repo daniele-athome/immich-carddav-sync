@@ -15,28 +15,27 @@ class MemoryLaneResponseDto:
     """
     Attributes:
         assets (List['AssetResponseDto']):
-        title (str):
+        years_ago (int):
     """
 
     assets: List["AssetResponseDto"]
-    title: str
+    years_ago: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         assets = []
         for assets_item_data in self.assets:
             assets_item = assets_item_data.to_dict()
-
             assets.append(assets_item)
 
-        title = self.title
+        years_ago = self.years_ago
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "assets": assets,
-                "title": title,
+                "yearsAgo": years_ago,
             }
         )
 
@@ -54,11 +53,11 @@ class MemoryLaneResponseDto:
 
             assets.append(assets_item)
 
-        title = d.pop("title")
+        years_ago = d.pop("yearsAgo")
 
         memory_lane_response_dto = cls(
             assets=assets,
-            title=title,
+            years_ago=years_ago,
         )
 
         memory_lane_response_dto.additional_properties = d

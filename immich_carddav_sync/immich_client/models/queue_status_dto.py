@@ -20,6 +20,7 @@ class QueueStatusDto:
 
     def to_dict(self) -> Dict[str, Any]:
         is_active = self.is_active
+
         is_paused = self.is_paused
 
         field_dict: Dict[str, Any] = {}

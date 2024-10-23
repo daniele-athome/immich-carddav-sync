@@ -1,11 +1,9 @@
 import datetime
-from typing import Any, Dict, List, Optional, Type, TypeVar, cast
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
-
-from ..models.library_type import LibraryType
 
 T = TypeVar("T", bound="LibraryResponseDto")
 
@@ -21,9 +19,8 @@ class LibraryResponseDto:
         import_paths (List[str]):
         name (str):
         owner_id (str):
-        type (LibraryType):
+        refreshed_at (Union[None, datetime.datetime]):
         updated_at (datetime.datetime):
-        refreshed_at (Optional[datetime.datetime]):
     """
 
     asset_count: int
@@ -33,27 +30,32 @@ class LibraryResponseDto:
     import_paths: List[str]
     name: str
     owner_id: str
-    type: LibraryType
+    refreshed_at: Union[None, datetime.datetime]
     updated_at: datetime.datetime
-    refreshed_at: Optional[datetime.datetime]
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         asset_count = self.asset_count
+
         created_at = self.created_at.isoformat()
 
         exclusion_patterns = self.exclusion_patterns
 
         id = self.id
+
         import_paths = self.import_paths
 
         name = self.name
+
         owner_id = self.owner_id
-        type = self.type.value
+
+        refreshed_at: Union[None, str]
+        if isinstance(self.refreshed_at, datetime.datetime):
+            refreshed_at = self.refreshed_at.isoformat()
+        else:
+            refreshed_at = self.refreshed_at
 
         updated_at = self.updated_at.isoformat()
-
-        refreshed_at = self.refreshed_at.isoformat() if self.refreshed_at else None
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -66,9 +68,8 @@ class LibraryResponseDto:
                 "importPaths": import_paths,
                 "name": name,
                 "ownerId": owner_id,
-                "type": type,
-                "updatedAt": updated_at,
                 "refreshedAt": refreshed_at,
+                "updatedAt": updated_at,
             }
         )
 
@@ -91,16 +92,22 @@ class LibraryResponseDto:
 
         owner_id = d.pop("ownerId")
 
-        type = LibraryType(d.pop("type"))
+        def _parse_refreshed_at(data: object) -> Union[None, datetime.datetime]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                refreshed_at_type_0 = isoparse(data)
+
+                return refreshed_at_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, datetime.datetime], data)
+
+        refreshed_at = _parse_refreshed_at(d.pop("refreshedAt"))
 
         updated_at = isoparse(d.pop("updatedAt"))
-
-        _refreshed_at = d.pop("refreshedAt")
-        refreshed_at: Optional[datetime.datetime]
-        if _refreshed_at is None:
-            refreshed_at = None
-        else:
-            refreshed_at = isoparse(_refreshed_at)
 
         library_response_dto = cls(
             asset_count=asset_count,
@@ -110,9 +117,8 @@ class LibraryResponseDto:
             import_paths=import_paths,
             name=name,
             owner_id=owner_id,
-            type=type,
-            updated_at=updated_at,
             refreshed_at=refreshed_at,
+            updated_at=updated_at,
         )
 
         library_response_dto.additional_properties = d

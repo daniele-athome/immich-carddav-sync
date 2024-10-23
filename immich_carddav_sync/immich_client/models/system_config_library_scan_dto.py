@@ -20,6 +20,7 @@ class SystemConfigLibraryScanDto:
 
     def to_dict(self) -> Dict[str, Any]:
         cron_expression = self.cron_expression
+
         enabled = self.enabled
 
         field_dict: Dict[str, Any] = {}

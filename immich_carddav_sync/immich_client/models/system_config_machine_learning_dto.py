@@ -4,9 +4,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.classification_config import ClassificationConfig
     from ..models.clip_config import CLIPConfig
-    from ..models.recognition_config import RecognitionConfig
+    from ..models.duplicate_detection_config import DuplicateDetectionConfig
+    from ..models.facial_recognition_config import FacialRecognitionConfig
 
 
 T = TypeVar("T", bound="SystemConfigMachineLearningDto")
@@ -16,26 +16,27 @@ T = TypeVar("T", bound="SystemConfigMachineLearningDto")
 class SystemConfigMachineLearningDto:
     """
     Attributes:
-        classification (ClassificationConfig):
         clip (CLIPConfig):
+        duplicate_detection (DuplicateDetectionConfig):
         enabled (bool):
-        facial_recognition (RecognitionConfig):
+        facial_recognition (FacialRecognitionConfig):
         url (str):
     """
 
-    classification: "ClassificationConfig"
     clip: "CLIPConfig"
+    duplicate_detection: "DuplicateDetectionConfig"
     enabled: bool
-    facial_recognition: "RecognitionConfig"
+    facial_recognition: "FacialRecognitionConfig"
     url: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        classification = self.classification.to_dict()
-
         clip = self.clip.to_dict()
 
+        duplicate_detection = self.duplicate_detection.to_dict()
+
         enabled = self.enabled
+
         facial_recognition = self.facial_recognition.to_dict()
 
         url = self.url
@@ -44,8 +45,8 @@ class SystemConfigMachineLearningDto:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "classification": classification,
                 "clip": clip,
+                "duplicateDetection": duplicate_detection,
                 "enabled": enabled,
                 "facialRecognition": facial_recognition,
                 "url": url,
@@ -56,24 +57,24 @@ class SystemConfigMachineLearningDto:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.classification_config import ClassificationConfig
         from ..models.clip_config import CLIPConfig
-        from ..models.recognition_config import RecognitionConfig
+        from ..models.duplicate_detection_config import DuplicateDetectionConfig
+        from ..models.facial_recognition_config import FacialRecognitionConfig
 
         d = src_dict.copy()
-        classification = ClassificationConfig.from_dict(d.pop("classification"))
-
         clip = CLIPConfig.from_dict(d.pop("clip"))
+
+        duplicate_detection = DuplicateDetectionConfig.from_dict(d.pop("duplicateDetection"))
 
         enabled = d.pop("enabled")
 
-        facial_recognition = RecognitionConfig.from_dict(d.pop("facialRecognition"))
+        facial_recognition = FacialRecognitionConfig.from_dict(d.pop("facialRecognition"))
 
         url = d.pop("url")
 
         system_config_machine_learning_dto = cls(
-            classification=classification,
             clip=clip,
+            duplicate_detection=duplicate_detection,
             enabled=enabled,
             facial_recognition=facial_recognition,
             url=url,

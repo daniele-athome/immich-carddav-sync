@@ -20,6 +20,7 @@ class FileChecksumResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         checksum = self.checksum
+
         filename = self.filename
 
         field_dict: Dict[str, Any] = {}
