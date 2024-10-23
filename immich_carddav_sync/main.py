@@ -5,6 +5,7 @@ import os
 
 import aiohttp
 import aiostream
+import uuid
 import vobject
 
 from vdirsyncer.cli import fetchparams
@@ -12,7 +13,7 @@ from vdirsyncer.storage import dav
 from vdirsyncer.vobject import Item
 
 from .immich_client import AuthenticatedClient
-from .immich_client.api.person import get_all_people, update_person
+from .immich_client.api.people import get_all_people, update_person
 from .immich_client.models import PeopleResponseDto, PersonResponseDto, PersonUpdateDto
 
 
@@ -97,7 +98,7 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
     logger.debug('PUT /people/%s << {"birthDate":"%s"}', person_id, birth_date)
     with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
         dto = PersonUpdateDto(birth_date=datetime.date.fromisoformat(birth_date))
-        response: PersonResponseDto = await update_person.asyncio(id=person_id, json_body=dto, client=client)
+        response: PersonResponseDto = await update_person.asyncio(id=uuid.UUID(person_id), body=dto, client=client)
         if not response or response.birth_date.isoformat() != birth_date:
             raise RuntimeError("Birth date was not set.")
 

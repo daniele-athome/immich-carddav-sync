@@ -1,9 +1,10 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.job_command import JobCommand
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="JobCommandDto")
 
@@ -13,11 +14,11 @@ class JobCommandDto:
     """
     Attributes:
         command (JobCommand):
-        force (bool):
+        force (Union[Unset, bool]):
     """
 
     command: JobCommand
-    force: bool
+    force: Union[Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -30,9 +31,10 @@ class JobCommandDto:
         field_dict.update(
             {
                 "command": command,
-                "force": force,
             }
         )
+        if force is not UNSET:
+            field_dict["force"] = force
 
         return field_dict
 
@@ -41,7 +43,7 @@ class JobCommandDto:
         d = src_dict.copy()
         command = JobCommand(d.pop("command"))
 
-        force = d.pop("force")
+        force = d.pop("force", UNSET)
 
         job_command_dto = cls(
             command=command,

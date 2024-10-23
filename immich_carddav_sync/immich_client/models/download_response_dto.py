@@ -26,7 +26,6 @@ class DownloadResponseDto:
         archives = []
         for archives_item_data in self.archives:
             archives_item = archives_item_data.to_dict()
-
             archives.append(archives_item)
 
         total_size = self.total_size

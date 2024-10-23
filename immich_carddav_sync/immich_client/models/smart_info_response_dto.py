@@ -12,28 +12,32 @@ T = TypeVar("T", bound="SmartInfoResponseDto")
 class SmartInfoResponseDto:
     """
     Attributes:
-        objects (Union[Unset, None, List[str]]):
-        tags (Union[Unset, None, List[str]]):
+        objects (Union[List[str], None, Unset]):
+        tags (Union[List[str], None, Unset]):
     """
 
-    objects: Union[Unset, None, List[str]] = UNSET
-    tags: Union[Unset, None, List[str]] = UNSET
+    objects: Union[List[str], None, Unset] = UNSET
+    tags: Union[List[str], None, Unset] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        objects: Union[Unset, None, List[str]] = UNSET
-        if not isinstance(self.objects, Unset):
-            if self.objects is None:
-                objects = None
-            else:
-                objects = self.objects
+        objects: Union[List[str], None, Unset]
+        if isinstance(self.objects, Unset):
+            objects = UNSET
+        elif isinstance(self.objects, list):
+            objects = self.objects
 
-        tags: Union[Unset, None, List[str]] = UNSET
-        if not isinstance(self.tags, Unset):
-            if self.tags is None:
-                tags = None
-            else:
-                tags = self.tags
+        else:
+            objects = self.objects
+
+        tags: Union[List[str], None, Unset]
+        if isinstance(self.tags, Unset):
+            tags = UNSET
+        elif isinstance(self.tags, list):
+            tags = self.tags
+
+        else:
+            tags = self.tags
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -48,9 +52,40 @@ class SmartInfoResponseDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        objects = cast(List[str], d.pop("objects", UNSET))
 
-        tags = cast(List[str], d.pop("tags", UNSET))
+        def _parse_objects(data: object) -> Union[List[str], None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                objects_type_0 = cast(List[str], data)
+
+                return objects_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[List[str], None, Unset], data)
+
+        objects = _parse_objects(d.pop("objects", UNSET))
+
+        def _parse_tags(data: object) -> Union[List[str], None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                tags_type_0 = cast(List[str], data)
+
+                return tags_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[List[str], None, Unset], data)
+
+        tags = _parse_tags(d.pop("tags", UNSET))
 
         smart_info_response_dto = cls(
             objects=objects,

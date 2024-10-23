@@ -22,7 +22,9 @@ class ServerVersionResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         major = self.major
+
         minor = self.minor
+
         patch = self.patch
 
         field_dict: Dict[str, Any] = {}

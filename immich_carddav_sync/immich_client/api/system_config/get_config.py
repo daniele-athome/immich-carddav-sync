@@ -10,18 +10,18 @@ from ...types import Response
 
 
 def _get_kwargs() -> Dict[str, Any]:
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/system-config",
     }
+
+    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[SystemConfigDto]:
-    if response.status_code == HTTPStatus.OK:
+    if response.status_code == 200:
         response_200 = SystemConfigDto.from_dict(response.json())
 
         return response_200

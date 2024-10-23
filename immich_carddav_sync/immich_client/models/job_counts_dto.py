@@ -28,10 +28,15 @@ class JobCountsDto:
 
     def to_dict(self) -> Dict[str, Any]:
         active = self.active
+
         completed = self.completed
+
         delayed = self.delayed
+
         failed = self.failed
+
         paused = self.paused
+
         waiting = self.waiting
 
         field_dict: Dict[str, Any] = {}

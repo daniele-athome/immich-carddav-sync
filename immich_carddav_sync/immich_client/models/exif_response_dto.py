@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,80 +14,190 @@ T = TypeVar("T", bound="ExifResponseDto")
 class ExifResponseDto:
     """
     Attributes:
-        city (Union[Unset, None, str]):
-        country (Union[Unset, None, str]):
-        date_time_original (Union[Unset, None, datetime.datetime]):
-        description (Union[Unset, None, str]):
-        exif_image_height (Union[Unset, None, float]):
-        exif_image_width (Union[Unset, None, float]):
-        exposure_time (Union[Unset, None, str]):
-        f_number (Union[Unset, None, float]):
-        file_size_in_byte (Union[Unset, None, int]):
-        focal_length (Union[Unset, None, float]):
-        iso (Union[Unset, None, float]):
-        latitude (Union[Unset, None, float]):
-        lens_model (Union[Unset, None, str]):
-        longitude (Union[Unset, None, float]):
-        make (Union[Unset, None, str]):
-        model (Union[Unset, None, str]):
-        modify_date (Union[Unset, None, datetime.datetime]):
-        orientation (Union[Unset, None, str]):
-        projection_type (Union[Unset, None, str]):
-        state (Union[Unset, None, str]):
-        time_zone (Union[Unset, None, str]):
+        city (Union[None, Unset, str]):
+        country (Union[None, Unset, str]):
+        date_time_original (Union[None, Unset, datetime.datetime]):
+        description (Union[None, Unset, str]):
+        exif_image_height (Union[None, Unset, float]):
+        exif_image_width (Union[None, Unset, float]):
+        exposure_time (Union[None, Unset, str]):
+        f_number (Union[None, Unset, float]):
+        file_size_in_byte (Union[None, Unset, int]):
+        focal_length (Union[None, Unset, float]):
+        iso (Union[None, Unset, float]):
+        latitude (Union[None, Unset, float]):
+        lens_model (Union[None, Unset, str]):
+        longitude (Union[None, Unset, float]):
+        make (Union[None, Unset, str]):
+        model (Union[None, Unset, str]):
+        modify_date (Union[None, Unset, datetime.datetime]):
+        orientation (Union[None, Unset, str]):
+        projection_type (Union[None, Unset, str]):
+        rating (Union[None, Unset, float]):
+        state (Union[None, Unset, str]):
+        time_zone (Union[None, Unset, str]):
     """
 
-    city: Union[Unset, None, str] = UNSET
-    country: Union[Unset, None, str] = UNSET
-    date_time_original: Union[Unset, None, datetime.datetime] = UNSET
-    description: Union[Unset, None, str] = UNSET
-    exif_image_height: Union[Unset, None, float] = UNSET
-    exif_image_width: Union[Unset, None, float] = UNSET
-    exposure_time: Union[Unset, None, str] = UNSET
-    f_number: Union[Unset, None, float] = UNSET
-    file_size_in_byte: Union[Unset, None, int] = UNSET
-    focal_length: Union[Unset, None, float] = UNSET
-    iso: Union[Unset, None, float] = UNSET
-    latitude: Union[Unset, None, float] = UNSET
-    lens_model: Union[Unset, None, str] = UNSET
-    longitude: Union[Unset, None, float] = UNSET
-    make: Union[Unset, None, str] = UNSET
-    model: Union[Unset, None, str] = UNSET
-    modify_date: Union[Unset, None, datetime.datetime] = UNSET
-    orientation: Union[Unset, None, str] = UNSET
-    projection_type: Union[Unset, None, str] = UNSET
-    state: Union[Unset, None, str] = UNSET
-    time_zone: Union[Unset, None, str] = UNSET
+    city: Union[None, Unset, str] = UNSET
+    country: Union[None, Unset, str] = UNSET
+    date_time_original: Union[None, Unset, datetime.datetime] = UNSET
+    description: Union[None, Unset, str] = UNSET
+    exif_image_height: Union[None, Unset, float] = UNSET
+    exif_image_width: Union[None, Unset, float] = UNSET
+    exposure_time: Union[None, Unset, str] = UNSET
+    f_number: Union[None, Unset, float] = UNSET
+    file_size_in_byte: Union[None, Unset, int] = UNSET
+    focal_length: Union[None, Unset, float] = UNSET
+    iso: Union[None, Unset, float] = UNSET
+    latitude: Union[None, Unset, float] = UNSET
+    lens_model: Union[None, Unset, str] = UNSET
+    longitude: Union[None, Unset, float] = UNSET
+    make: Union[None, Unset, str] = UNSET
+    model: Union[None, Unset, str] = UNSET
+    modify_date: Union[None, Unset, datetime.datetime] = UNSET
+    orientation: Union[None, Unset, str] = UNSET
+    projection_type: Union[None, Unset, str] = UNSET
+    rating: Union[None, Unset, float] = UNSET
+    state: Union[None, Unset, str] = UNSET
+    time_zone: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        city = self.city
-        country = self.country
-        date_time_original: Union[Unset, None, str] = UNSET
-        if not isinstance(self.date_time_original, Unset):
-            date_time_original = self.date_time_original.isoformat() if self.date_time_original else None
+        city: Union[None, Unset, str]
+        if isinstance(self.city, Unset):
+            city = UNSET
+        else:
+            city = self.city
 
-        description = self.description
-        exif_image_height = self.exif_image_height
-        exif_image_width = self.exif_image_width
-        exposure_time = self.exposure_time
-        f_number = self.f_number
-        file_size_in_byte = self.file_size_in_byte
-        focal_length = self.focal_length
-        iso = self.iso
-        latitude = self.latitude
-        lens_model = self.lens_model
-        longitude = self.longitude
-        make = self.make
-        model = self.model
-        modify_date: Union[Unset, None, str] = UNSET
-        if not isinstance(self.modify_date, Unset):
-            modify_date = self.modify_date.isoformat() if self.modify_date else None
+        country: Union[None, Unset, str]
+        if isinstance(self.country, Unset):
+            country = UNSET
+        else:
+            country = self.country
 
-        orientation = self.orientation
-        projection_type = self.projection_type
-        state = self.state
-        time_zone = self.time_zone
+        date_time_original: Union[None, Unset, str]
+        if isinstance(self.date_time_original, Unset):
+            date_time_original = UNSET
+        elif isinstance(self.date_time_original, datetime.datetime):
+            date_time_original = self.date_time_original.isoformat()
+        else:
+            date_time_original = self.date_time_original
+
+        description: Union[None, Unset, str]
+        if isinstance(self.description, Unset):
+            description = UNSET
+        else:
+            description = self.description
+
+        exif_image_height: Union[None, Unset, float]
+        if isinstance(self.exif_image_height, Unset):
+            exif_image_height = UNSET
+        else:
+            exif_image_height = self.exif_image_height
+
+        exif_image_width: Union[None, Unset, float]
+        if isinstance(self.exif_image_width, Unset):
+            exif_image_width = UNSET
+        else:
+            exif_image_width = self.exif_image_width
+
+        exposure_time: Union[None, Unset, str]
+        if isinstance(self.exposure_time, Unset):
+            exposure_time = UNSET
+        else:
+            exposure_time = self.exposure_time
+
+        f_number: Union[None, Unset, float]
+        if isinstance(self.f_number, Unset):
+            f_number = UNSET
+        else:
+            f_number = self.f_number
+
+        file_size_in_byte: Union[None, Unset, int]
+        if isinstance(self.file_size_in_byte, Unset):
+            file_size_in_byte = UNSET
+        else:
+            file_size_in_byte = self.file_size_in_byte
+
+        focal_length: Union[None, Unset, float]
+        if isinstance(self.focal_length, Unset):
+            focal_length = UNSET
+        else:
+            focal_length = self.focal_length
+
+        iso: Union[None, Unset, float]
+        if isinstance(self.iso, Unset):
+            iso = UNSET
+        else:
+            iso = self.iso
+
+        latitude: Union[None, Unset, float]
+        if isinstance(self.latitude, Unset):
+            latitude = UNSET
+        else:
+            latitude = self.latitude
+
+        lens_model: Union[None, Unset, str]
+        if isinstance(self.lens_model, Unset):
+            lens_model = UNSET
+        else:
+            lens_model = self.lens_model
+
+        longitude: Union[None, Unset, float]
+        if isinstance(self.longitude, Unset):
+            longitude = UNSET
+        else:
+            longitude = self.longitude
+
+        make: Union[None, Unset, str]
+        if isinstance(self.make, Unset):
+            make = UNSET
+        else:
+            make = self.make
+
+        model: Union[None, Unset, str]
+        if isinstance(self.model, Unset):
+            model = UNSET
+        else:
+            model = self.model
+
+        modify_date: Union[None, Unset, str]
+        if isinstance(self.modify_date, Unset):
+            modify_date = UNSET
+        elif isinstance(self.modify_date, datetime.datetime):
+            modify_date = self.modify_date.isoformat()
+        else:
+            modify_date = self.modify_date
+
+        orientation: Union[None, Unset, str]
+        if isinstance(self.orientation, Unset):
+            orientation = UNSET
+        else:
+            orientation = self.orientation
+
+        projection_type: Union[None, Unset, str]
+        if isinstance(self.projection_type, Unset):
+            projection_type = UNSET
+        else:
+            projection_type = self.projection_type
+
+        rating: Union[None, Unset, float]
+        if isinstance(self.rating, Unset):
+            rating = UNSET
+        else:
+            rating = self.rating
+
+        state: Union[None, Unset, str]
+        if isinstance(self.state, Unset):
+            state = UNSET
+        else:
+            state = self.state
+
+        time_zone: Union[None, Unset, str]
+        if isinstance(self.time_zone, Unset):
+            time_zone = UNSET
+        else:
+            time_zone = self.time_zone
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -130,6 +240,8 @@ class ExifResponseDto:
             field_dict["orientation"] = orientation
         if projection_type is not UNSET:
             field_dict["projectionType"] = projection_type
+        if rating is not UNSET:
+            field_dict["rating"] = rating
         if state is not UNSET:
             field_dict["state"] = state
         if time_zone is not UNSET:
@@ -140,61 +252,220 @@ class ExifResponseDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        city = d.pop("city", UNSET)
 
-        country = d.pop("country", UNSET)
+        def _parse_city(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        _date_time_original = d.pop("dateTimeOriginal", UNSET)
-        date_time_original: Union[Unset, None, datetime.datetime]
-        if _date_time_original is None:
-            date_time_original = None
-        elif isinstance(_date_time_original, Unset):
-            date_time_original = UNSET
-        else:
-            date_time_original = isoparse(_date_time_original)
+        city = _parse_city(d.pop("city", UNSET))
 
-        description = d.pop("description", UNSET)
+        def _parse_country(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        exif_image_height = d.pop("exifImageHeight", UNSET)
+        country = _parse_country(d.pop("country", UNSET))
 
-        exif_image_width = d.pop("exifImageWidth", UNSET)
+        def _parse_date_time_original(data: object) -> Union[None, Unset, datetime.datetime]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                date_time_original_type_0 = isoparse(data)
 
-        exposure_time = d.pop("exposureTime", UNSET)
+                return date_time_original_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, Unset, datetime.datetime], data)
 
-        f_number = d.pop("fNumber", UNSET)
+        date_time_original = _parse_date_time_original(d.pop("dateTimeOriginal", UNSET))
 
-        file_size_in_byte = d.pop("fileSizeInByte", UNSET)
+        def _parse_description(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        focal_length = d.pop("focalLength", UNSET)
+        description = _parse_description(d.pop("description", UNSET))
 
-        iso = d.pop("iso", UNSET)
+        def _parse_exif_image_height(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
 
-        latitude = d.pop("latitude", UNSET)
+        exif_image_height = _parse_exif_image_height(d.pop("exifImageHeight", UNSET))
 
-        lens_model = d.pop("lensModel", UNSET)
+        def _parse_exif_image_width(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
 
-        longitude = d.pop("longitude", UNSET)
+        exif_image_width = _parse_exif_image_width(d.pop("exifImageWidth", UNSET))
 
-        make = d.pop("make", UNSET)
+        def _parse_exposure_time(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
 
-        model = d.pop("model", UNSET)
+        exposure_time = _parse_exposure_time(d.pop("exposureTime", UNSET))
 
-        _modify_date = d.pop("modifyDate", UNSET)
-        modify_date: Union[Unset, None, datetime.datetime]
-        if _modify_date is None:
-            modify_date = None
-        elif isinstance(_modify_date, Unset):
-            modify_date = UNSET
-        else:
-            modify_date = isoparse(_modify_date)
+        def _parse_f_number(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
 
-        orientation = d.pop("orientation", UNSET)
+        f_number = _parse_f_number(d.pop("fNumber", UNSET))
 
-        projection_type = d.pop("projectionType", UNSET)
+        def _parse_file_size_in_byte(data: object) -> Union[None, Unset, int]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, int], data)
 
-        state = d.pop("state", UNSET)
+        file_size_in_byte = _parse_file_size_in_byte(d.pop("fileSizeInByte", UNSET))
 
-        time_zone = d.pop("timeZone", UNSET)
+        def _parse_focal_length(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        focal_length = _parse_focal_length(d.pop("focalLength", UNSET))
+
+        def _parse_iso(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        iso = _parse_iso(d.pop("iso", UNSET))
+
+        def _parse_latitude(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        latitude = _parse_latitude(d.pop("latitude", UNSET))
+
+        def _parse_lens_model(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        lens_model = _parse_lens_model(d.pop("lensModel", UNSET))
+
+        def _parse_longitude(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        longitude = _parse_longitude(d.pop("longitude", UNSET))
+
+        def _parse_make(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        make = _parse_make(d.pop("make", UNSET))
+
+        def _parse_model(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        model = _parse_model(d.pop("model", UNSET))
+
+        def _parse_modify_date(data: object) -> Union[None, Unset, datetime.datetime]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                modify_date_type_0 = isoparse(data)
+
+                return modify_date_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, Unset, datetime.datetime], data)
+
+        modify_date = _parse_modify_date(d.pop("modifyDate", UNSET))
+
+        def _parse_orientation(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        orientation = _parse_orientation(d.pop("orientation", UNSET))
+
+        def _parse_projection_type(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        projection_type = _parse_projection_type(d.pop("projectionType", UNSET))
+
+        def _parse_rating(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        rating = _parse_rating(d.pop("rating", UNSET))
+
+        def _parse_state(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        state = _parse_state(d.pop("state", UNSET))
+
+        def _parse_time_zone(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        time_zone = _parse_time_zone(d.pop("timeZone", UNSET))
 
         exif_response_dto = cls(
             city=city,
@@ -216,6 +487,7 @@ class ExifResponseDto:
             modify_date=modify_date,
             orientation=orientation,
             projection_type=projection_type,
+            rating=rating,
             state=state,
             time_zone=time_zone,
         )

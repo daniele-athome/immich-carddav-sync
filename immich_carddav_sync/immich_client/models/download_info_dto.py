@@ -1,4 +1,5 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar, Union
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -12,26 +13,35 @@ T = TypeVar("T", bound="DownloadInfoDto")
 class DownloadInfoDto:
     """
     Attributes:
-        album_id (Union[Unset, str]):
+        album_id (Union[Unset, UUID]):
         archive_size (Union[Unset, int]):
-        asset_ids (Union[Unset, List[str]]):
-        user_id (Union[Unset, str]):
+        asset_ids (Union[Unset, List[UUID]]):
+        user_id (Union[Unset, UUID]):
     """
 
-    album_id: Union[Unset, str] = UNSET
+    album_id: Union[Unset, UUID] = UNSET
     archive_size: Union[Unset, int] = UNSET
-    asset_ids: Union[Unset, List[str]] = UNSET
-    user_id: Union[Unset, str] = UNSET
+    asset_ids: Union[Unset, List[UUID]] = UNSET
+    user_id: Union[Unset, UUID] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        album_id = self.album_id
+        album_id: Union[Unset, str] = UNSET
+        if not isinstance(self.album_id, Unset):
+            album_id = str(self.album_id)
+
         archive_size = self.archive_size
+
         asset_ids: Union[Unset, List[str]] = UNSET
         if not isinstance(self.asset_ids, Unset):
-            asset_ids = self.asset_ids
+            asset_ids = []
+            for asset_ids_item_data in self.asset_ids:
+                asset_ids_item = str(asset_ids_item_data)
+                asset_ids.append(asset_ids_item)
 
-        user_id = self.user_id
+        user_id: Union[Unset, str] = UNSET
+        if not isinstance(self.user_id, Unset):
+            user_id = str(self.user_id)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -50,13 +60,28 @@ class DownloadInfoDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        album_id = d.pop("albumId", UNSET)
+        _album_id = d.pop("albumId", UNSET)
+        album_id: Union[Unset, UUID]
+        if isinstance(_album_id, Unset):
+            album_id = UNSET
+        else:
+            album_id = UUID(_album_id)
 
         archive_size = d.pop("archiveSize", UNSET)
 
-        asset_ids = cast(List[str], d.pop("assetIds", UNSET))
+        asset_ids = []
+        _asset_ids = d.pop("assetIds", UNSET)
+        for asset_ids_item_data in _asset_ids or []:
+            asset_ids_item = UUID(asset_ids_item_data)
 
-        user_id = d.pop("userId", UNSET)
+            asset_ids.append(asset_ids_item)
+
+        _user_id = d.pop("userId", UNSET)
+        user_id: Union[Unset, UUID]
+        if isinstance(_user_id, Unset):
+            user_id = UNSET
+        else:
+            user_id = UUID(_user_id)
 
         download_info_dto = cls(
             album_id=album_id,

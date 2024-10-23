@@ -17,12 +17,14 @@ class AssetBulkUploadCheckResult:
         action (AssetBulkUploadCheckResultAction):
         id (str):
         asset_id (Union[Unset, str]):
+        is_trashed (Union[Unset, bool]):
         reason (Union[Unset, AssetBulkUploadCheckResultReason]):
     """
 
     action: AssetBulkUploadCheckResultAction
     id: str
     asset_id: Union[Unset, str] = UNSET
+    is_trashed: Union[Unset, bool] = UNSET
     reason: Union[Unset, AssetBulkUploadCheckResultReason] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -30,7 +32,11 @@ class AssetBulkUploadCheckResult:
         action = self.action.value
 
         id = self.id
+
         asset_id = self.asset_id
+
+        is_trashed = self.is_trashed
+
         reason: Union[Unset, str] = UNSET
         if not isinstance(self.reason, Unset):
             reason = self.reason.value
@@ -45,6 +51,8 @@ class AssetBulkUploadCheckResult:
         )
         if asset_id is not UNSET:
             field_dict["assetId"] = asset_id
+        if is_trashed is not UNSET:
+            field_dict["isTrashed"] = is_trashed
         if reason is not UNSET:
             field_dict["reason"] = reason
 
@@ -59,6 +67,8 @@ class AssetBulkUploadCheckResult:
 
         asset_id = d.pop("assetId", UNSET)
 
+        is_trashed = d.pop("isTrashed", UNSET)
+
         _reason = d.pop("reason", UNSET)
         reason: Union[Unset, AssetBulkUploadCheckResultReason]
         if isinstance(_reason, Unset):
@@ -70,6 +80,7 @@ class AssetBulkUploadCheckResult:
             action=action,
             id=id,
             asset_id=asset_id,
+            is_trashed=is_trashed,
             reason=reason,
         )
 

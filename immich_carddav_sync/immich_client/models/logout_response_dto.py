@@ -20,6 +20,7 @@ class LogoutResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         redirect_uri = self.redirect_uri
+
         successful = self.successful
 
         field_dict: Dict[str, Any] = {}

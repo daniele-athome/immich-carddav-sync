@@ -29,16 +29,15 @@ class SearchAlbumResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         count = self.count
+
         facets = []
         for facets_item_data in self.facets:
             facets_item = facets_item_data.to_dict()
-
             facets.append(facets_item)
 
         items = []
         for items_item_data in self.items:
             items_item = items_item_data.to_dict()
-
             items.append(items_item)
 
         total = self.total

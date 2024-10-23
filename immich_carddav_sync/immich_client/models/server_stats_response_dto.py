@@ -14,10 +14,10 @@ T = TypeVar("T", bound="ServerStatsResponseDto")
 class ServerStatsResponseDto:
     """
     Attributes:
-        photos (int):
-        usage (int):
+        photos (int):  Default: 0.
+        usage (int):  Default: 0.
         usage_by_user (List['UsageByUserDto']):  Example: [{'photos': 1, 'videos': 1, 'diskUsageRaw': 1}].
-        videos (int):
+        videos (int):  Default: 0.
     """
 
     usage_by_user: List["UsageByUserDto"]
@@ -28,11 +28,12 @@ class ServerStatsResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         photos = self.photos
+
         usage = self.usage
+
         usage_by_user = []
         for usage_by_user_item_data in self.usage_by_user:
             usage_by_user_item = usage_by_user_item_data.to_dict()
-
             usage_by_user.append(usage_by_user_item)
 
         videos = self.videos

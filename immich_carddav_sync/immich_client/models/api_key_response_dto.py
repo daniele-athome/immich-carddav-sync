@@ -5,6 +5,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.permission import Permission
+
 T = TypeVar("T", bound="APIKeyResponseDto")
 
 
@@ -15,12 +17,14 @@ class APIKeyResponseDto:
         created_at (datetime.datetime):
         id (str):
         name (str):
+        permissions (List[Permission]):
         updated_at (datetime.datetime):
     """
 
     created_at: datetime.datetime
     id: str
     name: str
+    permissions: List[Permission]
     updated_at: datetime.datetime
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -28,7 +32,14 @@ class APIKeyResponseDto:
         created_at = self.created_at.isoformat()
 
         id = self.id
+
         name = self.name
+
+        permissions = []
+        for permissions_item_data in self.permissions:
+            permissions_item = permissions_item_data.value
+            permissions.append(permissions_item)
+
         updated_at = self.updated_at.isoformat()
 
         field_dict: Dict[str, Any] = {}
@@ -38,6 +49,7 @@ class APIKeyResponseDto:
                 "createdAt": created_at,
                 "id": id,
                 "name": name,
+                "permissions": permissions,
                 "updatedAt": updated_at,
             }
         )
@@ -53,12 +65,20 @@ class APIKeyResponseDto:
 
         name = d.pop("name")
 
+        permissions = []
+        _permissions = d.pop("permissions")
+        for permissions_item_data in _permissions:
+            permissions_item = Permission(permissions_item_data)
+
+            permissions.append(permissions_item)
+
         updated_at = isoparse(d.pop("updatedAt"))
 
         api_key_response_dto = cls(
             created_at=created_at,
             id=id,
             name=name,
+            permissions=permissions,
             updated_at=updated_at,
         )
 

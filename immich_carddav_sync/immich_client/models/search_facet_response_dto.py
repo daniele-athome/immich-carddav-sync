@@ -26,7 +26,6 @@ class SearchFacetResponseDto:
         counts = []
         for counts_item_data in self.counts:
             counts_item = counts_item_data.to_dict()
-
             counts.append(counts_item)
 
         field_name = self.field_name

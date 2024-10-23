@@ -24,7 +24,6 @@ class PeopleUpdateDto:
         people = []
         for people_item_data in self.people:
             people_item = people_item_data.to_dict()
-
             people.append(people_item)
 
         field_dict: Dict[str, Any] = {}

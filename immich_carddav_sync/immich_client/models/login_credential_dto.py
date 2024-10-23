@@ -20,6 +20,7 @@ class LoginCredentialDto:
 
     def to_dict(self) -> Dict[str, Any]:
         email = self.email
+
         password = self.password
 
         field_dict: Dict[str, Any] = {}

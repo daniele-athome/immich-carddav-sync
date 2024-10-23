@@ -24,10 +24,10 @@ class SearchExploreResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         field_name = self.field_name
+
         items = []
         for items_item_data in self.items:
             items_item = items_item_data.to_dict()
-
             items.append(items_item)
 
         field_dict: Dict[str, Any] = {}

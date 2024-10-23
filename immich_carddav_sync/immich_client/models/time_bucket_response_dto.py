@@ -20,6 +20,7 @@ class TimeBucketResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         count = self.count
+
         time_bucket = self.time_bucket
 
         field_dict: Dict[str, Any] = {}

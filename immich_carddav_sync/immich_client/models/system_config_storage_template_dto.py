@@ -10,19 +10,29 @@ T = TypeVar("T", bound="SystemConfigStorageTemplateDto")
 class SystemConfigStorageTemplateDto:
     """
     Attributes:
+        enabled (bool):
+        hash_verification_enabled (bool):
         template (str):
     """
 
+    enabled: bool
+    hash_verification_enabled: bool
     template: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        enabled = self.enabled
+
+        hash_verification_enabled = self.hash_verification_enabled
+
         template = self.template
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "enabled": enabled,
+                "hashVerificationEnabled": hash_verification_enabled,
                 "template": template,
             }
         )
@@ -32,9 +42,15 @@ class SystemConfigStorageTemplateDto:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        enabled = d.pop("enabled")
+
+        hash_verification_enabled = d.pop("hashVerificationEnabled")
+
         template = d.pop("template")
 
         system_config_storage_template_dto = cls(
+            enabled=enabled,
+            hash_verification_enabled=hash_verification_enabled,
             template=template,
         )
 

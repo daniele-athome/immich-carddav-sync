@@ -20,6 +20,7 @@ class SearchFacetCountResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         count = self.count
+
         value = self.value
 
         field_dict: Dict[str, Any] = {}

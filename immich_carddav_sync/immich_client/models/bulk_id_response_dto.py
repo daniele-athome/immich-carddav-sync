@@ -25,7 +25,9 @@ class BulkIdResponseDto:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         success = self.success
+
         error: Union[Unset, str] = UNSET
         if not isinstance(self.error, Unset):
             error = self.error.value

@@ -15,24 +15,32 @@ class AllJobStatusResponseDto:
     """
     Attributes:
         background_task (JobStatusDto):
-        clip_encoding (JobStatusDto):
+        duplicate_detection (JobStatusDto):
+        face_detection (JobStatusDto):
+        facial_recognition (JobStatusDto):
+        library (JobStatusDto):
         metadata_extraction (JobStatusDto):
-        object_tagging (JobStatusDto):
-        recognize_faces (JobStatusDto):
+        migration (JobStatusDto):
+        notifications (JobStatusDto):
         search (JobStatusDto):
         sidecar (JobStatusDto):
+        smart_search (JobStatusDto):
         storage_template_migration (JobStatusDto):
         thumbnail_generation (JobStatusDto):
         video_conversion (JobStatusDto):
     """
 
     background_task: "JobStatusDto"
-    clip_encoding: "JobStatusDto"
+    duplicate_detection: "JobStatusDto"
+    face_detection: "JobStatusDto"
+    facial_recognition: "JobStatusDto"
+    library: "JobStatusDto"
     metadata_extraction: "JobStatusDto"
-    object_tagging: "JobStatusDto"
-    recognize_faces: "JobStatusDto"
+    migration: "JobStatusDto"
+    notifications: "JobStatusDto"
     search: "JobStatusDto"
     sidecar: "JobStatusDto"
+    smart_search: "JobStatusDto"
     storage_template_migration: "JobStatusDto"
     thumbnail_generation: "JobStatusDto"
     video_conversion: "JobStatusDto"
@@ -41,17 +49,25 @@ class AllJobStatusResponseDto:
     def to_dict(self) -> Dict[str, Any]:
         background_task = self.background_task.to_dict()
 
-        clip_encoding = self.clip_encoding.to_dict()
+        duplicate_detection = self.duplicate_detection.to_dict()
+
+        face_detection = self.face_detection.to_dict()
+
+        facial_recognition = self.facial_recognition.to_dict()
+
+        library = self.library.to_dict()
 
         metadata_extraction = self.metadata_extraction.to_dict()
 
-        object_tagging = self.object_tagging.to_dict()
+        migration = self.migration.to_dict()
 
-        recognize_faces = self.recognize_faces.to_dict()
+        notifications = self.notifications.to_dict()
 
         search = self.search.to_dict()
 
         sidecar = self.sidecar.to_dict()
+
+        smart_search = self.smart_search.to_dict()
 
         storage_template_migration = self.storage_template_migration.to_dict()
 
@@ -64,12 +80,16 @@ class AllJobStatusResponseDto:
         field_dict.update(
             {
                 "backgroundTask": background_task,
-                "clipEncoding": clip_encoding,
+                "duplicateDetection": duplicate_detection,
+                "faceDetection": face_detection,
+                "facialRecognition": facial_recognition,
+                "library": library,
                 "metadataExtraction": metadata_extraction,
-                "objectTagging": object_tagging,
-                "recognizeFaces": recognize_faces,
+                "migration": migration,
+                "notifications": notifications,
                 "search": search,
                 "sidecar": sidecar,
+                "smartSearch": smart_search,
                 "storageTemplateMigration": storage_template_migration,
                 "thumbnailGeneration": thumbnail_generation,
                 "videoConversion": video_conversion,
@@ -85,17 +105,25 @@ class AllJobStatusResponseDto:
         d = src_dict.copy()
         background_task = JobStatusDto.from_dict(d.pop("backgroundTask"))
 
-        clip_encoding = JobStatusDto.from_dict(d.pop("clipEncoding"))
+        duplicate_detection = JobStatusDto.from_dict(d.pop("duplicateDetection"))
+
+        face_detection = JobStatusDto.from_dict(d.pop("faceDetection"))
+
+        facial_recognition = JobStatusDto.from_dict(d.pop("facialRecognition"))
+
+        library = JobStatusDto.from_dict(d.pop("library"))
 
         metadata_extraction = JobStatusDto.from_dict(d.pop("metadataExtraction"))
 
-        object_tagging = JobStatusDto.from_dict(d.pop("objectTagging"))
+        migration = JobStatusDto.from_dict(d.pop("migration"))
 
-        recognize_faces = JobStatusDto.from_dict(d.pop("recognizeFaces"))
+        notifications = JobStatusDto.from_dict(d.pop("notifications"))
 
         search = JobStatusDto.from_dict(d.pop("search"))
 
         sidecar = JobStatusDto.from_dict(d.pop("sidecar"))
+
+        smart_search = JobStatusDto.from_dict(d.pop("smartSearch"))
 
         storage_template_migration = JobStatusDto.from_dict(d.pop("storageTemplateMigration"))
 
@@ -105,12 +133,16 @@ class AllJobStatusResponseDto:
 
         all_job_status_response_dto = cls(
             background_task=background_task,
-            clip_encoding=clip_encoding,
+            duplicate_detection=duplicate_detection,
+            face_detection=face_detection,
+            facial_recognition=facial_recognition,
+            library=library,
             metadata_extraction=metadata_extraction,
-            object_tagging=object_tagging,
-            recognize_faces=recognize_faces,
+            migration=migration,
+            notifications=notifications,
             search=search,
             sidecar=sidecar,
+            smart_search=smart_search,
             storage_template_migration=storage_template_migration,
             thumbnail_generation=thumbnail_generation,
             video_conversion=video_conversion,
