@@ -1,5 +1,5 @@
 ARG COMMAND_VERSION=latest
-FROM ghcr.io/daniele-athome/immich-carddav-sync:${COMMAND_VERSION} as runtime
+FROM ghcr.io/daniele-athome/immich-carddav-sync:${COMMAND_VERSION} AS runtime
 
 RUN apt-get update && apt-get install --no-install-recommends -y gettext-base cron
 
