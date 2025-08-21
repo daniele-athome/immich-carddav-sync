@@ -178,7 +178,7 @@ async def async_main():
                     person[1][0][0], match['birthday'], settings.immich_api_url, settings.immich_api_key
                 )
             else:
-                logger.info("Birth date for %s is already %s - skipping" % (match['fn'], match['birthday']))
+                logger.info("Birth date for %s is already %s - skipping" % (person[0], match['birthday']))
 
         else:
             logger.info("Person %s not found in Contacts - skipping" % (person[0]))
