@@ -136,7 +136,7 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
         if not response or response.birth_date.isoformat() != birth_date:
             raise RuntimeError("Birth date was not set.")
 
-async def match_person_to_contact(person: tuple, contacts: dict):
+def match_person_to_contact(person: tuple, contacts: dict):
     """
     Match a person in Immich to a contact in the address book.
     Returns the contact if a match is found, otherwise None.
