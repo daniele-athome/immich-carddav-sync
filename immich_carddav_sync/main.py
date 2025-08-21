@@ -136,28 +136,24 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
         if not response or response.birth_date.isoformat() != birth_date:
             raise RuntimeError("Birth date was not set.")
 
-async def match_person_to_contact(person: dict, contacts: dict):
+async def match_person_to_contact(person: tuple, contacts: dict):
     """
     Match a person in Immich to a contact in the address book.
     Returns the contact if a match is found, otherwise None.
     The person is a tuple of (name, [(id, birth_date)]).
     """
     name = person[0]
+    
+    # Fields to check for a match, in order of priority.
+    match_fields = ["fn", "first_last", "nickname"]
+
     logger.debug("Checking in contacts %s", contacts)
     for _, contact in contacts.items():
         logger.debug("Checking contact: %s", contact)
-        if name == contact["fn"]:
-            # Found a matching person by formatted name
-            logger.debug("Found matching person by formatted name: %s", name)
-            return contact
-        elif contact["first_last"] and name == contact["first_last"]:
-            # Found a matching person by first and last name
-            logger.debug("Found matching person by first and last name: %s", name)
-            return contact
-        elif contact["nickname"] and name == contact["nickname"]:
-            # Found a matching person by nickname
-            logger.debug("Found matching person by nickname: %s", name)
-            return contact
+        for field in match_fields:
+            if contact.get(field) == name:
+                logger.debug("Found matching person by %s: %s", field.replace('_', ' '), name)
+                return contact
 
     return None
 
