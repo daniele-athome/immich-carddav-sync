@@ -44,23 +44,9 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
         card_contacts = await aiostream.stream.list(client.get_multi(hrefs))
 
         item: Item
-        contacts = {}
+        contacts = []
         for _, item, _ in card_contacts:
             vcard = vobject.readOne(item.raw)
-
-            if hasattr(vcard, "uid") and vcard.uid.value:
-                contact_id = vcard.uid.value
-            elif hasattr(vcard, "fn") and vcard.fn.value:
-                # if the vcard has a fn, use it as ID
-                contact_id = vcard.fn.value
-            else:
-                logger.warning("No ID found for vCard: %s", item.raw)
-                continue  # skip if no ID can be determined
-
-            logger.debug("Processing contact: %s", contact_id)
-            if contact_id in contacts:
-                # duplicate contact name - currently not handled
-                raise NotImplementedError('Duplicate contacts cannot be handled yet ("%s").' % contact_id)
 
             try:
                 birthday = datetime.date.fromisoformat(vcard.bday.value)
@@ -79,7 +65,7 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
                     # use the first and last name from the vcard
                     if hasattr(vcard.n.value, "given") and hasattr(vcard.n.value, "family"):
                         first_last = f"{vcard.n.value.given} {vcard.n.value.family}".strip()
-                        
+
                 formatted_birthday = birthday.isoformat()
 
                 fn = None
@@ -92,12 +78,16 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
                     # use the nickname from the vcard
                     nickname = vcard.nickname.value.strip()
 
-                contacts[contact_id] = {
+                contacts.append({
                     "birthday": formatted_birthday,
-                    "fn": fn,
-                    "first_last": first_last,
-                    "nickname": nickname
-                }
+                    "fields": {
+                        # Order is important here: it also defines the priority for name matching.
+                        # Starting Python 3.7 dict has guaranteed insertion order.
+                        "fn": fn,
+                        "first_last": first_last,
+                        "nickname": nickname
+                    }
+                })
 
             except ValueError:
                 # invalid date
@@ -109,6 +99,10 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
         return contacts
 
 async def fetch_immich_people(api_url: str, api_key: str):
+    """
+    Fetches people data from Immich.
+    :return: a dict having person names as key and a list of (person_id, birth_date) as values
+    """
     with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
         people: PeopleResponseDto = await get_all_people.asyncio(client=client)
         names = {}
@@ -136,23 +130,18 @@ async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, a
         if not response or response.birth_date.isoformat() != birth_date:
             raise RuntimeError("Birth date was not set.")
 
-def match_person_to_contact(person: tuple, contacts: dict):
+def match_person_to_first_contact(person_name: str, contacts: list) -> dict|None:
     """
-    Match a person in Immich to a contact in the address book.
-    Returns the contact if a match is found, otherwise None.
-    The person is a tuple of (name, [(id, birth_date)]).
+    Match a person name in Immich to the first contact that it can find in the address book.
+    :return: the first matched contact, otherwise None.
     """
-    name = person[0]
-    
-    # Fields to check for a match, in order of priority.
-    match_fields = ["fn", "first_last", "nickname"]
 
-    logger.debug("Checking in contacts %s", contacts)
-    for _, contact in contacts.items():
+    logger.debug("Search for %s in contacts", person_name)
+    for contact in contacts:
         logger.debug("Checking contact: %s", contact)
-        for field in match_fields:
-            if contact.get(field) == name:
-                logger.debug("Found matching person by %s: %s", field.replace('_', ' '), name)
+        for field, value in contact["fields"].items():
+            if value == person_name:
+                logger.debug("Found matching person by %s: %s", field.replace('_', ' '), person_name)
                 return contact
 
     return None
@@ -168,20 +157,23 @@ async def async_main():
     people = await fetch_immich_people(settings.immich_api_url, settings.immich_api_key)
     logger.debug(people)
 
-    for person in people.items():
-        logger.debug("Processing person: %s", person)
-        match = match_person_to_contact(person, addressbook)
+    for person_name, people_data in people.items():
+        logger.debug("Processing person: %s", person_name)
+        match = match_person_to_first_contact(person_name, addressbook)
         if match:
-            if match["birthday"] != person[1][0][1]:
-                logger.info("Found matching contact for %s: %s", person[0], match)
-                await set_immich_birth_date(
-                    person[1][0][0], match['birthday'], settings.immich_api_url, settings.immich_api_key
-                )
-            else:
-                logger.info("Birth date for %s is already %s - skipping" % (person[0], match['birthday']))
+            for person in people_data:
+                # people with same name will have same date of birth
+                if match["birthday"] != person[1]:
+                    logger.info("Found matching contact for %s (%s): %s", person_name, person[0], match['birthday'])
+                    await set_immich_birth_date(
+                        person[0], match['birthday'], settings.immich_api_url, settings.immich_api_key
+                    )
+                else:
+                    logger.info("Birth date for person %s (%s) is already %s - skipping" %
+                                (person_name, person[0], match['birthday']))
 
         else:
-            logger.info("Person %s not found in Contacts - skipping" % (person[0]))
+            logger.info("Person %s not found in contacts - skipping" % person_name)
 
 
 def main():

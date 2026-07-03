@@ -20,21 +20,19 @@ ERROR, CRITICAL).
 
 ## Implementation notes
 
-* matching between contacts and Immich people is between
-  the [formatted name field](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.1) of the contact and the Immich
-  person's name
+* matching between contacts and Immich people is between the Immich person's name and the following fields in the contact, **in this order**:
+  * [formatted name](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.1)
+  * [given name + family name](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.2), separated by a space
+  * [nickname](https://datatracker.ietf.org/doc/html/rfc6350#section-6.2.3)
+* only the first matching contact will be used
 * people in Immich with the same name will have the same date of birth
-* duplicate contacts (i.e. with identical formatted name) are not supported yet (will cause exit with error)
 
 ## Installation
 
-> TODO package install
-
 Running the tool needs Poetry for now.
 
-FIXME poetry preparation etc.
-
 ```shell
+poetry install
 poetry run immich-carddav-sync
 ```
 
