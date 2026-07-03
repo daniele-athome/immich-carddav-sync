@@ -7,15 +7,14 @@ import aiohttp
 import aiostream
 import uuid
 import vobject
+from immichpy.client.generated import PeopleResponseDto, PeopleUpdateDto, \
+    PeopleUpdateItem, BulkIdResponseDto
 
 from vdirsyncer.cli import fetchparams
 from vdirsyncer.storage import dav
 from vdirsyncer.vobject import Item
 
-from .immich_client import AuthenticatedClient
-from .immich_client.api.people import get_all_people, update_person
-from .immich_client.models import PeopleResponseDto, PersonResponseDto, PersonUpdateDto
-
+from immichpy import AsyncClient
 
 from .config import settings
 from .logger import init_logging
@@ -103,8 +102,8 @@ async def fetch_immich_people(api_url: str, api_key: str):
     Fetches people data from Immich.
     :return: a dict having person names as key and a list of (person_id, birth_date) as values
     """
-    with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
-        people: PeopleResponseDto = await get_all_people.asyncio(client=client)
+    async with AsyncClient(base_url=api_url, api_key=api_key) as client:
+        people: PeopleResponseDto = await client.people.get_all_people()
         names = {}
         for person in people.people:
             if person.name and len(person.name.strip()) > 0:
@@ -122,12 +121,13 @@ async def fetch_immich_people(api_url: str, api_key: str):
         return names
 
 
-async def set_immich_birth_date(person_id: str, birth_date: str, api_url: str, api_key: str):
+async def set_immich_birth_date(person_id: uuid.UUID, birth_date: str, api_url: str, api_key: str):
     logger.debug('PUT /people/%s << {"birthDate":"%s"}', person_id, birth_date)
-    with AuthenticatedClient(base_url=api_url, auth_header_name="X-api-key", prefix="", token=api_key) as client:
-        dto = PersonUpdateDto(birth_date=datetime.date.fromisoformat(birth_date))
-        response: PersonResponseDto = await update_person.asyncio(id=uuid.UUID(person_id), body=dto, client=client)
-        if not response or response.birth_date.isoformat() != birth_date:
+    async with AsyncClient(base_url=api_url, api_key=api_key) as client:
+        dto = PeopleUpdateDto(people=[PeopleUpdateItem(birthDate=datetime.date.fromisoformat(birth_date),
+                                                       id=person_id)])
+        response: list[BulkIdResponseDto] = await client.people.update_people(dto)
+        if not response or len(response) < 1 or not response[0].success:
             raise RuntimeError("Birth date was not set.")
 
 def match_person_to_first_contact(person_name: str, contacts: list) -> dict|None:
