@@ -72,5 +72,4 @@ services:
 
 * use s6-overlay instead of simple Debian cron (mainly because of vixie-cron not reacting to signals)
 * support for duplicate contacts (ask interactively or assume a predefined behavior)
-* match names with a custom (or multiple) vCard field(s)
 * dry run mode
