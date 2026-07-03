@@ -162,9 +162,17 @@ async def async_main():
     )
     logger.debug(addressbook)
 
+    if len(addressbook) == 0:
+        logger.warning("No contacts found in any address book. Exiting.")
+        return
+
     logger.info("Fetching people from Immich...")
     people = await fetch_immich_people(settings.immich_api_url, settings.immich_api_key)
     logger.debug(people)
+
+    if len(people) == 0:
+        logger.warning("No people found in Immich. Exiting.")
+        return
 
     for person_name, people_data in people.items():
         logger.debug("Processing person: %s", person_name)
