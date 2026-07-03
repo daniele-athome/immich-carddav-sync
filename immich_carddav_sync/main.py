@@ -49,18 +49,18 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
             vcard = vobject.readOne(item.raw)
 
             if hasattr(vcard, "uid") and vcard.uid.value:
-                id = vcard.uid.value
+                contact_id = vcard.uid.value
             elif hasattr(vcard, "fn") and vcard.fn.value:
                 # if the vcard has a fn, use it as ID
-                id = vcard.fn.value
+                contact_id = vcard.fn.value
             else:
                 logger.warning("No ID found for vCard: %s", item.raw)
                 continue  # skip if no ID can be determined
 
-            logger.debug("Processing contact: %s", id)
-            if id in contacts:
+            logger.debug("Processing contact: %s", contact_id)
+            if contact_id in contacts:
                 # duplicate contact name - currently not handled
-                raise NotImplementedError('Duplicate contacts cannot be handled yet ("%s").' % id)
+                raise NotImplementedError('Duplicate contacts cannot be handled yet ("%s").' % contact_id)
 
             try:
                 birthday = datetime.date.fromisoformat(vcard.bday.value)
@@ -92,7 +92,7 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
                     # use the nickname from the vcard
                     nickname = vcard.nickname.value.strip()
 
-                contacts[id] = {
+                contacts[contact_id] = {
                     "birthday": formatted_birthday,
                     "fn": fn,
                     "first_last": first_last,
