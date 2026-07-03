@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+# TODO proper validation rules
 class Settings(BaseSettings):
     immich_api_url: str
     immich_api_key: str

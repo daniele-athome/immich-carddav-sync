@@ -31,14 +31,20 @@ async def fetch_carddav_addressbook(url: str, collection: str, username: str, pa
         }
         config = fetchparams.expand_fetch_params(config)
         client = dav.CardDAVStorage(**config)
-        collection = await aiostream.stream.filter(client.discover(**config), lambda x: x["collection"] == collection)
 
-        config["url"] = collection["url"]
-        client = dav.CardDAVStorage(**config)
-        discovered = await aiostream.stream.list(client.list())
+        address_books = await aiostream.stream.list(client.discover(**config))
+        if collection != "*":
+            address_books = filter(lambda x: x["collection"] == collection, address_books)
 
-        hrefs = [x[0] for x in discovered]
-        card_contacts = await aiostream.stream.list(client.get_multi(hrefs))
+        card_contacts = []
+        for address_book in address_books:
+            logger.debug("Fetching address book %s", address_book["collection"])
+            config["url"] = address_book["url"]
+            client = dav.CardDAVStorage(**config)
+            discovered = await aiostream.stream.list(client.list())
+
+            hrefs = [x[0] for x in discovered]
+            card_contacts.extend(await aiostream.stream.list(client.get_multi(hrefs)))
 
         item: Item
         contacts = []

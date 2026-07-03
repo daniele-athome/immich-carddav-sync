@@ -5,15 +5,15 @@ A tool to sync dates of birth in Immich from a CardDAV server.
 
 Configuration is provided via environment variables (`.env` file is supported).
 
-| Name                             | Description                                    |
-|----------------------------------|------------------------------------------------|
-| CARDDAV_SYNC_CARDDAV_URL         | URL to the CardDAV server                      |
-| CARDDAV_SYNC_CARDDAV_ADDRESSBOOK | Address book name or ID in the CardDAV server. |
-| CARDDAV_SYNC_CARDDAV_USERNAME    | Username of CardDAV server                     |
-| CARDDAV_SYNC_CARDDAV_PASSWORD    | Password of CardDAV server                     |
-| CARDDAV_SYNC_IMMICH_API_URL      | Immich instance API URL (including "/api")     |
-| CARDDAV_SYNC_IMMICH_API_KEY      | Immich API key                                 |
-| CARDDAV_SYNC_CRON_EXPRESSION     | Cron expression (only for daemon image)        |
+| Name                             | Description                                                                                             |
+|----------------------------------|---------------------------------------------------------------------------------------------------------|
+| CARDDAV_SYNC_CARDDAV_URL         | URL to the CardDAV server                                                                               |
+| CARDDAV_SYNC_CARDDAV_ADDRESSBOOK | Address book name or ID in the CardDAV server. Use "*" to use automatic discovery of all address books. |
+| CARDDAV_SYNC_CARDDAV_USERNAME    | Username of CardDAV server                                                                              |
+| CARDDAV_SYNC_CARDDAV_PASSWORD    | Password of CardDAV server                                                                              |
+| CARDDAV_SYNC_IMMICH_API_URL      | Immich instance API URL (including "/api")                                                              |
+| CARDDAV_SYNC_IMMICH_API_KEY      | Immich API key                                                                                          |
+| CARDDAV_SYNC_CRON_EXPRESSION     | Cron expression (only for daemon image)                                                                 |
 
 Environment variable LOG_LEVEL will configure the logging level (standard Python logging levels: DEBUG, INFO, WARNING,
 ERROR, CRITICAL).
