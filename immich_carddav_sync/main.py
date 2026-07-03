@@ -170,7 +170,7 @@ async def async_main():
 
     for person in people.items():
         logger.debug("Processing person: %s", person)
-        match = await match_person_to_contact(person, addressbook)
+        match = match_person_to_contact(person, addressbook)
         if match:
             if match["birthday"] != person[1][0][1]:
                 logger.info("Found matching contact for %s: %s", person[0], match)
